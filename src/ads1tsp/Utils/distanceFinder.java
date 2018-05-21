@@ -3,12 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ads1tsp;
+package ads1tsp.Utils;
 
 /**
  *
  * @author Robert Martinu
  */
-public class FileIO {
+public interface distanceFinder {
+    public void addNode(Node A);
+    public Node findClosestNeighbor( Node A);
+    
     
 }

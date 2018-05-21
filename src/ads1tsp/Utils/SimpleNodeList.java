@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ads1tsp;
+package ads1tsp.Utils;
 
 import java.util.ArrayList;
 
@@ -31,7 +31,7 @@ public class SimpleNodeList implements distanceFinder {
         double currentDistance;
         for (Node listOfNode : listOfNodes) {
             
-            currentDistance = A.calcDistance(listOfNode);
+            currentDistance = A.calculateDistance(listOfNode);
             
             if (currentDistance < 0) {
                 continue;

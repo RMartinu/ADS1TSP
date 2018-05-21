@@ -3,17 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ads1tsp;
+package ads1tsp.GUI;
 
 /**
  *
  * @author Robert Martinu
  */
-public class kdTree {
-    public kdTree()
-    {}
-    public void insert(Node n)
-    {}
-    
+public class SettingsPane {
     
 }

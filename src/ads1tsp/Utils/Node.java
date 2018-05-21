@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ads1tsp;
+package ads1tsp.Utils;
 
 /**
  *
@@ -31,7 +31,7 @@ public class Node {
     
     public void setIndex(int i )
     {index=i;}
-    public double calcDistance(Node other)
+    public double calculateDistance(Node other)
     {
         if(this==other)
             return -1;
@@ -41,11 +41,11 @@ public class Node {
         return deltaX*deltaX+deltaY*deltaY;
     }
     
-    public static double calcDistance (Node A, Node B)
+    public static double calculateDistance (Node A, Node B)
     {
         if(A==B)
             return -1;
-        return A.calcDistance(B);
+        return A.calculateDistance(B);
     }
     
     

@@ -5,6 +5,8 @@
  */
 package ads1tsp;
 
+import ads1tsp.Utils.Node;
+import ads1tsp.Utils.SimpleNodeList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

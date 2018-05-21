@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ads1tsp;
+package ads1tsp.GUI;
 
 import javafx.geometry.Bounds;
 import javafx.scene.layout.Pane;
