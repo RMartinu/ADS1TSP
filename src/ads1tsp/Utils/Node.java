@@ -14,21 +14,29 @@ public class Node {
     double x,y;
     int index;
     
+    
+    public Node (double x, double y)
+    {
+        setCoordinates(x, y);
+    }
     public Node (String n, double x, double y)
     {
         Name=n;
-        this.x=x;
-        this.y=y;
+        setCoordinates(x, y);
     }
+    
     
     public Node (int i, double x, double y)
     {
         index=i;
-        this.x=x;
-        this.y=y;
+        setCoordinates(x, y);
         this.Name=Integer.toString(i);
     }
-    
+    public void setCoordinates(double x, double y)
+    {
+        this.x=x;
+        this.y=y;
+    }
     public void setIndex(int i )
     {index=i;}
     public double calculateDistance(Node other)

@@ -5,19 +5,25 @@
  */
 package ads1tsp.Utils;
 
+import ads1tsp.Updateable;
+
 /**
  *
  * @author Robert Martinu
  */
-public class WeightedAdjacentList extends AdjacentList {
+public class AugmentedAdjacentList extends AdjacentList implements Updateable {
     
     double Costs[][];
-    public WeightedAdjacentList()
+    public AugmentedAdjacentList()
+    {
+    }
+    
+    public AugmentedAdjacentList(Node [] inputList){}
+    
+    void setCost(Node A, Node B)
     {}
-    
-    public WeightedAdjacentList(Node [] inputList){}
-    
     double getCost(Node A, Node B)
     {return 0;}
+
     
 }

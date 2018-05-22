@@ -27,22 +27,22 @@ public class ads1tsp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        PlotterPane p=new PlotterPane();
-        PlotterPane q=new PlotterPane();
+        PlotterPane p = new PlotterPane();
+        PlotterPane q = new PlotterPane();
         p.setMinSize(300, 300);
         q.setMinSize(300, 300);
         //VBox v= new VBox(p,q);
-        BorderPane bp= new BorderPane();
+        BorderPane bp = new BorderPane();
         bp.setBottom(q);
         bp.setTop(p);
-                p.repaint();
+        p.repaint();
         q.repaint();
-        Scene s= new Scene (bp,600,600);
+        Scene s = new Scene(bp, 600, 600);
         bp.setMinSize(300, 300);
         primaryStage.setScene(s);
         primaryStage.show();
         p.repaint();
         q.repaint();
     }
-    
+
 }

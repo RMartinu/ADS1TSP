@@ -45,11 +45,11 @@ public class SimpleNodeListTest {
     @Test
     public void testAddNode() {
         System.out.println("addNode");
-        Node A = null;
+        Node A = new Node (0,1,2);
         SimpleNodeList instance = new SimpleNodeList();
         instance.addNode(A);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
