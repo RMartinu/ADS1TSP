@@ -5,6 +5,7 @@
  */
 package ads1tsp.GUI;
 
+import java.util.ArrayList;
 import javafx.geometry.Bounds;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
@@ -17,10 +18,27 @@ public class PlotterPane extends Pane {
     
     private Line m,n;
     private double ulx, llx, urx, lrx, uly, lly, ury, lry;
+    PlotList currentData;
+    ArrayList<Town> TownList;
+    ArrayList<Road> RoadList;
     public PlotterPane()
     {
+        TownList=new ArrayList<>();
+        RoadList=new ArrayList<>();
         repaint();
     }
+    
+    public void setCurrentData(PlotList input)
+    {
+        currentData=input;
+        if(currentData==null)
+            return;
+        int expectedLength=25;
+        TownList.ensureCapacity(expectedLength);
+        RoadList.ensureCapacity(expectedLength);
+    }
+    
+    
     
     public void repaint()
     {

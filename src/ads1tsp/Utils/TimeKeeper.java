@@ -5,18 +5,17 @@
  */
 package ads1tsp.Utils;
 
-import java.time.Instant;
-import java.util.Date;
-
 /**
  *
  * @author Robert Martinu
  */
 public class TimeKeeper {
-    Date d;
+    long totalEecutionTime;
+    long timeForLastIteration;
     public TimeKeeper()
     {
-        Instant i;
+       
+        long nanoTime = System.nanoTime();
         
     }
     

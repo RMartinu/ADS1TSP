@@ -9,14 +9,6 @@ package ads1tsp.Utils;
  *
  * @author Robert Martinu
  */
-public class Link {
-
-    Node a, b;
-
-    public Link(Node A, Node B) {
-        a = A;
-        b = B;
-
-    }
-
+public class Report {
+    
 }
