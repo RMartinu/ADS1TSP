@@ -12,7 +12,7 @@ import ads1tsp.Updateable;
  * @author Robert Martinu
  */
 public class AugmentedAdjacentList implements AdjacentList, Updateable {
-    
+    boolean isReady;
     double Costs[][];
     PlainAdjacentList baseList;
     public AugmentedAdjacentList()
@@ -36,7 +36,8 @@ public class AugmentedAdjacentList implements AdjacentList, Updateable {
 
     @Override
     public void Notify() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        isReady=false;
+        this.baseList.Notify();
     }
 
     @Override
@@ -47,6 +48,19 @@ public class AugmentedAdjacentList implements AdjacentList, Updateable {
     @Override
     public Node[] getNodeList() {
         return this.baseList.getNodeList();
+    }
+
+    public void setEdgeWeight(Node a, Node b, double w) {
+        
+    }
+
+    public double getEdgeWeight(Node a, Node b) {
+        return -1;
+    }
+
+    @Override
+    public void print() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

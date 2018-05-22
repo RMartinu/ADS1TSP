@@ -37,12 +37,19 @@ public class Node {
         this.x=x;
         this.y=y;
     }
+    
+    public int getIndex()
+    {return index;}
+    public double getX()
+    {return x;}
+    public double getY()
+    {return y;}
     public void setIndex(int i )
     {index=i;}
     public double calculateDistance(Node other)
     {
         if(this==other)
-            return -1;
+            return 0;
         double deltaX, deltaY;
         deltaX=this.x - other.x;
         deltaY = this.y - other.y;
@@ -52,8 +59,14 @@ public class Node {
     public static double calculateDistance (Node A, Node B)
     {
         if(A==B)
-            return -1;
+            return 0;
         return A.calculateDistance(B);
+    }
+    
+    @Override
+    public String toString()
+    {
+        return ("i: " + index + " name: "  + Name + " X: " +x + " Y:" + y);
     }
     
     

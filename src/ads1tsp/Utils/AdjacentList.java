@@ -11,6 +11,21 @@ package ads1tsp.Utils;
  */
 public interface AdjacentList {
     public int getLength();
+
+    /**
+     *
+     * @return
+     */
     public Node[] getNodeList();
+
+    /**
+     *
+     * @param a
+     * @param b
+     * @param w
+     */
+
+    
+    public void print();
     
 }

@@ -18,5 +18,9 @@ public class Link {
         b = B;
 
     }
+    public Node getStartNode()
+    {return a;}
+    public Node getEndNode()
+    {return b;}
 
 }
