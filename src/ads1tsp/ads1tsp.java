@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 /**
  *
  * @author Robert Martinu
+ * @author Julia Pichler
  */
 public class ads1tsp extends Application {
 
