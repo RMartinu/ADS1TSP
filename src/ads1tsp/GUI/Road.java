@@ -5,10 +5,10 @@
  */
 package ads1tsp.GUI;
 
-import ads1tsp.Utils.Node;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 
 /**
  *
@@ -19,21 +19,34 @@ public class Road {
     Color color;
     double density;
     Town start, end;
+    Line line;
     DoubleProperty startX, startY, endY,endX;
     
     public Road (Town start, Town end)
     {
+        color=Color.RED; density=0.1;
         startX=new SimpleDoubleProperty();
-        startX.bind(start.XProperty());
+        startX.bind(start.myX);
         startY=new SimpleDoubleProperty();
-        startY.bind(start.YProperty());
+        startY.bind(start.myY);
         endX=new SimpleDoubleProperty();
-        endX.bind(end.XProperty());
+        endX.bind(end.myX);
         endY=new SimpleDoubleProperty();
-        endY.bind(end.YProperty());
+        endY.bind(end.myY);
+        
+        line=new Line();
+        color=color.deriveColor(1, 1, 1, density);
+        line.setStroke(color);
+        line.setStrokeWidth(3);
+       
+        
+        line.startXProperty().bind(startX);
+        line.startYProperty().bind(startY);
+        line.endXProperty().bind(endX);
+        line.endYProperty().bind(endY);
   
     }
-    public Road (Node start, Node end, Color c,double density)
+    public Road (Town start, Town end, Color c,double density)
     {}
     public DoubleProperty startXProperty(){return startX;}
     public DoubleProperty startYProperty(){return startY;}

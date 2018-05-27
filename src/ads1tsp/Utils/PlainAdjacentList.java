@@ -87,6 +87,7 @@ public class PlainAdjacentList implements AdjacentList,Updateable{
 
     @Override
     public void Notify() {
+        System.out.println("k, lets start this all over...");
         isReady=false;
     }
 

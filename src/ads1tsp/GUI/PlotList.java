@@ -5,6 +5,7 @@
  */
 package ads1tsp.GUI;
 
+import ads1tsp.Utils.AdjacentList;
 import ads1tsp.Utils.PlainAdjacentList;
 import ads1tsp.Utils.AugmentedAdjacentList;
 import ads1tsp.Utils.Link;
@@ -19,6 +20,7 @@ import javafx.scene.paint.Color;
 public class PlotList {
     
     double maxX=Double.MIN_VALUE, minX=Double.MAX_VALUE, maxY=Double.MIN_VALUE, minY=Double.MAX_VALUE;
+    AdjacentList l;
     ArrayList<Road> roads;
     ArrayList<Town> towns;
     public PlotList()
@@ -26,6 +28,40 @@ public class PlotList {
         roads=new ArrayList<>();
         towns=new ArrayList<>();
                 
+    }
+    public PlotList (boolean test)
+    {if(test==false)return;
+    roads=new ArrayList<>();
+        towns=new ArrayList<>();
+    Town A,B,C,D,E;
+    Town.scaleX=1;
+    Town.scaleY=1;
+    A=new Town(new Node(10, 10));
+    B=new Town (new Node (20,200));
+    C=new Town (new Node(100,100));
+    D=new Town (new Node (150,175));
+    l=new PlainAdjacentList();
+    
+    towns.add(A);
+    towns.add(B);towns.add(C);towns.add(D);
+    
+    for (Town t : towns)
+    {
+        t.addUpdateListener(l);
+        System.out.println("x " + t.myX + " to " + t.myY);
+    }
+    
+    Road r1=new Road(A,B);
+    roads.add(r1);
+
+    
+    for (Road r : roads)
+    {
+        if (r==null)
+            continue;
+        System.out.println("from " + r.startX +", " + r.startY + " to " + r.line.endXProperty() + ", " + r.line.endYProperty());
+    }
+    
     }
     
     public void addNode(Node input)

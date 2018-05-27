@@ -5,11 +5,14 @@
  */
 package ads1tsp.Utils;
 
+import ads1tsp.Updateable;
+
 /**
  *
  * @author Robert Martinu
  */
-public interface AdjacentList {
+public interface AdjacentList extends Updateable {
+         
     public int getLength();
 
     /**

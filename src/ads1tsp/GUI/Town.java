@@ -9,7 +9,9 @@ import ads1tsp.Utils.*;
 import java.util.ArrayList;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 /**
  *
@@ -21,14 +23,33 @@ public class Town {
     Color myColor;
     SimpleDoubleProperty myX, myY;
     ArrayList<Updateable> clients;
+    Circle circle;
     public static void setScaleX(double x){scaleX=x;}
     public static void setScaleY(double y){scaleY=y;}
     
     public Town (Node n)
-    {myNode=n; myColor=Color.RED; clients=new ArrayList<>();myX=new SimpleDoubleProperty(myNode.getX()*scaleX); myY=new SimpleDoubleProperty(myNode.getY()*scaleY);
+    {myNode=n; myColor=Color.RED; clients=new ArrayList<>();myX=new SimpleDoubleProperty(myNode.getX()*scaleX); myY=new SimpleDoubleProperty(myNode.getY()*scaleY); circle=new Circle(20);
+    circle.centerXProperty().bindBidirectional(myX);
+    circle.centerYProperty().bindBidirectional(myY);
+    addListen();
+    
     }
     public Town (Node n, Color c)
-    {myNode=n; myColor=c; clients = new ArrayList<>(); myX=new SimpleDoubleProperty(myNode.getX()*scaleX); myY=new SimpleDoubleProperty(myNode.getY()*scaleY);
+    {myNode=n; myColor=c; clients = new ArrayList<>(); myX=new SimpleDoubleProperty(myNode.getX()*scaleX); myY=new SimpleDoubleProperty(myNode.getY()*scaleY);circle=new Circle(20);
+        circle.centerXProperty().bindBidirectional(myX);
+    circle.centerYProperty().bindBidirectional(myX); addListen();
+    }
+    
+    private void addListen()
+    {
+        circle.setOnMouseDragged((MouseEvent me)->{
+                        //System.out.println("I get drougged");
+            double dX=me.getX()-circle.getCenterX();
+            double dY=me.getY()-circle.getCenterY();
+            circle.setCenterX(me.getX());
+            circle.setCenterY(me.getY());
+            this.Update();
+        });
     }
     
     public void  addUpdateListener(Updateable client)
@@ -46,10 +67,11 @@ public class Town {
     public double getX(){return myX.doubleValue();}
     public double getY(){return myY.doubleValue();}
     
-    private void Update()
+    public void Update()
     {
         for (Updateable client: clients)
             client.Notify();
+        System.out.println("Said hello to my little friends");
     }
     
     
