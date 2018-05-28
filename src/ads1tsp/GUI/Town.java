@@ -18,7 +18,8 @@ import javafx.scene.shape.Circle;
  * @author Robert Martinu
  */
 public class Town {
-    static double scaleX, scaleY;
+    static double scaleX=3, scaleY=1;
+    static double screenOffsetX=123, screenOffsetY=0;
     Node myNode;
     Color myColor;
     SimpleDoubleProperty myX, myY;
@@ -28,16 +29,21 @@ public class Town {
     public static void setScaleY(double y){scaleY=y;}
     
     public Town (Node n)
-    {myNode=n; myColor=Color.RED; clients=new ArrayList<>();myX=new SimpleDoubleProperty(myNode.getX()*scaleX); myY=new SimpleDoubleProperty(myNode.getY()*scaleY); circle=new Circle(20);
-    circle.centerXProperty().bindBidirectional(myX);
-    circle.centerYProperty().bindBidirectional(myY);
-    addListen();
+    {myNode=n; myColor=Color.RED; clients=new ArrayList<>();
+        myX=new SimpleDoubleProperty(myNode.getX()*scaleX+screenOffsetX); myY=new SimpleDoubleProperty(myNode.getY()*scaleY+screenOffsetY);
+    circle=new Circle(10);circle.centerXProperty().bindBidirectional(myX);
+    circle.centerYProperty().bindBidirectional(myY); addListen();
+    System.out.println("My X" + this.myNode.getX() + " and on Screen" + this.myX);
+    System.out.println("My Y" + this.myNode.getY() + " and on Screen" + this.myY);
     
     }
     public Town (Node n, Color c)
-    {myNode=n; myColor=c; clients = new ArrayList<>(); myX=new SimpleDoubleProperty(myNode.getX()*scaleX); myY=new SimpleDoubleProperty(myNode.getY()*scaleY);circle=new Circle(20);
-        circle.centerXProperty().bindBidirectional(myX);
-    circle.centerYProperty().bindBidirectional(myX); addListen();
+    {myNode=n; myColor=c; clients = new ArrayList<>(); 
+    myX=new SimpleDoubleProperty(myNode.getX()*scaleX+screenOffsetX); myY=new SimpleDoubleProperty(myNode.getY()*scaleY+screenOffsetY);
+    circle=new Circle(10);circle.centerXProperty().bindBidirectional(myX);
+    circle.centerYProperty().bindBidirectional(myY); addListen();
+    System.out.println("My X" + this.myNode.getX() + " and on Screen" + this.myX);
+    System.out.println("My Y" + this.myNode.getY() + " and on Screen" + this.myY);
     }
     
     private void addListen()
@@ -68,10 +74,12 @@ public class Town {
     public double getY(){return myY.doubleValue();}
     
     public void Update()
-    {
+    {//ToDo: Actually update something
         for (Updateable client: clients)
             client.Notify();
         System.out.println("Said hello to my little friends");
+            System.out.println("My X" + this.myNode.getX() + " and on Screen" + this.myX);
+    System.out.println("My Y" + this.myNode.getY() + " and on Screen" + this.myY);
     }
     
     

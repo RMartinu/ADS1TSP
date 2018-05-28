@@ -35,8 +35,8 @@ public class PlotList {
     roads=new ArrayList<>();
         towns=new ArrayList<>();
     Town A,B,C,D,E;
-    Town.scaleX=1;
-    Town.scaleY=1;
+   // Town.scaleX=1;
+   // Town.scaleY=1;
     A=new Town(new Node(10, 10));
     B=new Town (new Node (20,200));
     C=new Town (new Node(100,100));
@@ -96,6 +96,8 @@ public class PlotList {
         scaY=pHeight/Math.abs(maxY-minY);
         System.err.println("scaX:" + scaX + " scaY: " + scaY);
         double offsetX, offsetY;
+        double townCenterX=(maxX+minX)/2, townCenterY=(maxY+minY)/2;
+        
     }
     
     
