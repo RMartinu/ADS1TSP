@@ -74,7 +74,7 @@ public class Town {
     public double getY(){return myY.doubleValue();}
     
     public void Update()
-    {//ToDo: Actually update something
+    {//ToDo: Actually update something; i.e. use screenOffset and scale for inverse transformation
         for (Updateable client: clients)
             client.Notify();
         System.out.println("Said hello to my little friends");

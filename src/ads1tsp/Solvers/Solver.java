@@ -5,10 +5,20 @@
  */
 package ads1tsp.Solvers;
 
+import ads1tsp.GUI.PlotList;
+import ads1tsp.Updateable;
+import ads1tsp.Utils.Statistics;
+
 /**
  *
  * @author Robert Martinu
  */
-public interface Solver {
+public interface Solver extends Updateable{
+    public void step();
+    public PlotList getPlotList();
+    public void addAdjacentList();
+    public void addControlPanel();
+    public Statistics getStatistics();
+    
     
 }
