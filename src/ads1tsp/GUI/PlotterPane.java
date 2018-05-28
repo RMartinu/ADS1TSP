@@ -32,6 +32,7 @@ public class PlotterPane extends Pane {
         c=new Circle(150, 150, 10);
         this.setCurrentData(new PlotList(true));
         
+        
         //Make Circles for draggable Towns
         c.setOnMouseDragged((MouseEvent me) -> {
             System.out.println("I get dragged");
@@ -86,6 +87,7 @@ public class PlotterPane extends Pane {
         System.out.println(ulx + " " + uly + " "+ lrx + " " + urx);
         System.out.println("x: " + this.getLayoutX() + ", y " + this.getLayoutY());
         System.out.println("hx: " + this.getHeight() + ", hy " + this.getWidth());
+        currentData.evalBounds(this);
        
         
     }

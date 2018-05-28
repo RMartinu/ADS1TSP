@@ -11,6 +11,7 @@ import ads1tsp.Utils.AugmentedAdjacentList;
 import ads1tsp.Utils.Link;
 import ads1tsp.Utils.Node;
 import java.util.ArrayList;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 /**
@@ -66,6 +67,36 @@ public class PlotList {
     
     public void addNode(Node input)
     {}
+    
+    public void evalBounds (Pane forPane)
+    {
+        System.err.println(forPane.getWidth() + " " + forPane.getHeight());
+        double pWith=forPane.getWidth()-30, pHeight=forPane.getHeight()-30;
+        if(pWith==0)
+            pWith=200;
+        if(pHeight==0)
+            pHeight=200;
+        
+        for (Town t: towns)
+        {
+            if(t.getX()>this.maxX)
+                maxX=t.getX();
+            if(t.getX()<this.minX)
+                minX=t.getX();
+            
+            if(t.getY()>this.maxY)
+                maxY=t.getY();
+            if(t.getY()<this.minY)
+                minY=t.getY();
+        }
+        System.err.println("MaxX: " + maxX + " minX: " + minX + " maxY: " + maxY + " minY: " + minY);
+        
+        double scaX, scaY;
+        scaX=pWith/(Math.abs(maxX-minX));
+        scaY=pHeight/Math.abs(maxY-minY);
+        System.err.println("scaX:" + scaX + " scaY: " + scaY);
+        double offsetX, offsetY;
+    }
     
     
     public void generateFromAdjacentList(PlainAdjacentList List)
