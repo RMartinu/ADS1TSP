@@ -6,6 +6,8 @@
 package ads1tsp.Solvers;
 
 import ads1tsp.GUI.PlotList;
+import ads1tsp.Utils.AdjacentList;
+import ads1tsp.Utils.AugmentedAdjacentList;
 import ads1tsp.Utils.Statistics;
 
 /**
@@ -25,7 +27,7 @@ public class AntColony implements Solver {
     }
 
     @Override
-    public void addAdjacentList() {
+    public void addAdjacentList(AdjacentList input) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -41,6 +43,21 @@ public class AntColony implements Solver {
 
     @Override
     public void Notify() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public SettingsPane getSettingsPane() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isReady() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+   
+    public void addAdjacentList(AugmentedAdjacentList input) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

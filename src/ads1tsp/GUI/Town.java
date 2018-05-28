@@ -20,6 +20,7 @@ import javafx.scene.shape.Circle;
 public class Town {
     static double scaleX=3, scaleY=1;
     static double screenOffsetX=123, screenOffsetY=0;
+    double newX,newY;
     Node myNode;
     Color myColor;
     SimpleDoubleProperty myX, myY;
@@ -75,11 +76,15 @@ public class Town {
     
     public void Update()
     {//ToDo: Actually update something; i.e. use screenOffset and scale for inverse transformation
+        
+        newX=(getX()-screenOffsetX)/scaleX;
+        newY=(getY()-screenOffsetY)/scaleY;
+        this.myNode.setCoordinates(newX, newY);
         for (Updateable client: clients)
             client.Notify();
         System.out.println("Said hello to my little friends");
-            System.out.println("My X" + this.myNode.getX() + " and on Screen" + this.myX);
-    System.out.println("My Y" + this.myNode.getY() + " and on Screen" + this.myY);
+            System.out.println("My X" + this.myNode.getX() + " and on Screen" + this.myX + " I should be: "+newX);
+    System.out.println("My Y" + this.myNode.getY() + " and on Screen" + this.myY + " I should be: "+newY);
     }
     
     

@@ -7,6 +7,7 @@ package ads1tsp.Solvers;
 
 import ads1tsp.GUI.PlotList;
 import ads1tsp.Updateable;
+import ads1tsp.Utils.AdjacentList;
 import ads1tsp.Utils.Statistics;
 
 /**
@@ -16,9 +17,11 @@ import ads1tsp.Utils.Statistics;
 public interface Solver extends Updateable{
     public void step();
     public PlotList getPlotList();
-    public void addAdjacentList();
+    public void addAdjacentList(AdjacentList input);
     public void addControlPanel();
     public Statistics getStatistics();
+    public SettingsPane getSettingsPane();
+    public boolean isReady();
     
     
 }

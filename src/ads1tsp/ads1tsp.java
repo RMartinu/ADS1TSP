@@ -6,6 +6,8 @@
 package ads1tsp;
 
 import ads1tsp.GUI.PlotterPane;
+import ads1tsp.Solvers.DummySettingsPane;
+import ads1tsp.Solvers.DummySolver;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -31,14 +33,14 @@ public class ads1tsp extends Application {
     public void start(Stage primaryStage) {
         PlotterPane p = new PlotterPane();
         PlotterPane q = new PlotterPane();
-        Label L=new Label("Pknk Fury");
+        DummySettingsPane dp=new DummySettingsPane(new DummySolver());
         p.setMinSize(300, 300);
         q.setMinSize(300, 300);
         //VBox v= new VBox(p,q);
         BorderPane bp = new BorderPane();
         bp.setBottom(q);
         bp.setTop(p);
-        bp.setCenter(L);
+        bp.setCenter(dp);
         p.repaint();
         q.repaint();
         Scene s = new Scene(bp, 700, 700);

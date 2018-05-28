@@ -20,6 +20,7 @@ public interface AdjacentList extends Updateable {
      * @return
      */
     public Node[] getNodeList();
+    public void rebuildAdjacentList();
 
     /**
      *

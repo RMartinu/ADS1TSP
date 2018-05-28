@@ -6,6 +6,9 @@
 package ads1tsp.Solvers;
 
 import ads1tsp.GUI.PlotList;
+import ads1tsp.Utils.AdjacentList;
+import ads1tsp.Utils.Node;
+import ads1tsp.Utils.PlainAdjacentList;
 import ads1tsp.Utils.Statistics;
 
 /**
@@ -14,19 +17,33 @@ import ads1tsp.Utils.Statistics;
  */
 public class DummySolver implements Solver {
 
+    AdjacentList workData;
+    PlotList outDAta;
     @Override
     public void step() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(!workData.isReady())
+            return;
+     
+        Node[] nl=workData.getNodeList();
+        Node origin=nl[0];
+        for (int i =1;i<nl.length;i++)
+        {
+            
+        }
+        
     }
 
     @Override
     public PlotList getPlotList() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return outDAta;
     }
 
     @Override
-    public void addAdjacentList() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void addAdjacentList(AdjacentList input) {
+        workData=input;
+        outDAta=new PlotList();
+        outDAta.generateFromAdjacentList((PlainAdjacentList)workData);
+        
     }
 
     @Override
@@ -41,7 +58,17 @@ public class DummySolver implements Solver {
 
     @Override
     public void Notify() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
+
+    @Override
+    public SettingsPane getSettingsPane() {
+        DummySettingsPane dsp=new DummySettingsPane(this);
+        return dsp;
+    }
+
+    @Override
+    public boolean isReady() {
+        return true;   }
     
 }

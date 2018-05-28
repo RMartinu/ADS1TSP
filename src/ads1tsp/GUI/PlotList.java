@@ -67,6 +67,58 @@ public class PlotList {
     
     public void addNode(Node input)
     {}
+    private Town findTownToNode(Node in)
+    {
+        for (Town t: towns)
+        {
+            if(t.myNode.equals(in))
+                return t;
+        }
+        return null;
+    }
+    public void AdTown(Town in){}
+    public void addRoad(Town A, Town B)
+    {
+        if(this.towns.contains(A) && this.towns.contains(B))
+        {
+            this.roads.add(new Road(A, B));
+        }
+    }
+    
+    public void addRoad(Node A, Node B)
+    {
+        Town start;
+        start = findTownToNode(A);
+        Town end;
+        end = findTownToNode(B);
+        addRoad(start, end);
+        
+        
+    }
+    
+    public void removeRoad(Node start, Node end)
+    {
+        Town A,B;
+        A=findTownToNode(start);
+        B=findTownToNode(end);
+        removeRoad(A, B);
+                
+    }
+    
+    public void removeRoad(Town A, Town B)
+    {
+        for (Road r : this.roads)
+        {
+            if((r.start==A&&r.end==B)||(r.start==B && r.end==A))
+            {this.roads.remove(r);return;}
+        }
+    }
+    
+    public void addRoad(Road in)
+    {
+        if (this.towns.contains(in.start) && this.towns.contains(in.end))
+            this.roads.add(in);
+    }
     
     public void evalBounds (Pane forPane)
     {
