@@ -72,6 +72,7 @@ public class PlainAdjacentListTest {
         Node A = new Node (10,10);
         PlainAdjacentList instance = new PlainAdjacentList(nodeList);
         instance.addNode(A);
+        System.out.println("Added a Node:");
         instance.print();
         assertEquals(instance.length, nodeList.length+1);
         // TODO review the generated test code and remove the default call to fail.

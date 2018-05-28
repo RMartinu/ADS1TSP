@@ -24,10 +24,23 @@ public class AugmentedAdjacentList implements AdjacentList, Updateable {
         baseList=new PlainAdjacentList(inputList);
     }
     
-    public void setCost(Node A, Node B)
-    {}
+    public void setCost(Node A, Node B, double cost)
+    {if(A==null||B==null)
+        return;
+    
+    if(A.index>B.index)
+        Costs[A.index][B.index]=cost;
+    Costs[B.index][A.index]=cost;
+    }
     public double getCost(Node A, Node B)
-    {return 0;}
+    {
+        if(A==null||B==null)
+            return -1;
+        if(A.index>B.index)
+            return this.Costs[A.index][B.index];
+        return Costs[B.index][A.index];
+        //return 0;
+    }
     
     public PlainAdjacentList getPlainList()
     {
@@ -60,7 +73,14 @@ public class AugmentedAdjacentList implements AdjacentList, Updateable {
 
     @Override
     public void print() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+    }
+
+    @Override
+    public boolean isReady() {
+        if(baseList.isReady())
+        return this.isReady;
+        return false;
     }
 
 }

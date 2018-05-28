@@ -56,8 +56,11 @@ public class PlainAdjacentList implements AdjacentList,Updateable{
                 Adjacents[i][j]=Node.calculateDistance(NodeList[i], NodeList[j]);
             }
         }
-        
+        this.isReady=true;
         System.out.println("Done");
+        this.print();
+        System.out.println("And Done");
+                
         
     }
     
@@ -76,14 +79,27 @@ public class PlainAdjacentList implements AdjacentList,Updateable{
     }
     
     
-    public void addNode(Node A){}
+    public void addNode(Node A){
+        System.out.println("    shoudl do somehing");
+        Node [] tempNodeList=new Node[NodeList.length+1];
+        for (int i =0; i<NodeList.length; i++)
+        {tempNodeList[i]=NodeList[i];}
+        tempNodeList[tempNodeList.length-1]=A;
+        NodeList=tempNodeList;
+        rebuildAdjacentList();
+        isReady=true;
+    }
     
     double getDistance(Node A, Node B)
     
     {//TODO: get actual Distance from the list instead of recalculating them every time
         if(A==null||B==null)
             return -1;
-        return A.calculateDistance(B);}
+        if(A.index>B.index)
+        return this.Adjacents[A.index][B.index];
+        return this.Adjacents[B.index][A.index];
+        //return A.calculateDistance(B);
+    }
 
     @Override
     public void Notify() {
@@ -103,7 +119,7 @@ public class PlainAdjacentList implements AdjacentList,Updateable{
 
     @Override
     public void print() {
-        
+        System.out.println("Is Ready: " + this.isReady);
        for (Node n:NodeList)
        {
            if(n==null)
@@ -116,10 +132,15 @@ public class PlainAdjacentList implements AdjacentList,Updateable{
        
         for (Node Node1 : NodeList) {
            for (Node Node2 : NodeList) {
-               System.out.print(this.getDistance(Node1, Node2) + " ");
+               System.out.printf("%.2f\t",this.getDistance(Node1, Node2));
            }
             System.out.println();
         }
+    }
+
+    @Override
+    public boolean isReady() {
+       return this.isReady;
     }
 
 }

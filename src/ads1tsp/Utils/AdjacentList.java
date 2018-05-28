@@ -30,5 +30,6 @@ public interface AdjacentList extends Updateable {
 
     
     public void print();
+    public boolean isReady();
     
 }
