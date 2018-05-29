@@ -29,30 +29,36 @@ public class PlotterPane extends Pane {
         //TownList=new ArrayList<>();
         //RoadList=new ArrayList<>();
         m=new Line();
-        c=new Circle(150, 150, 10);
-        this.setCurrentData(new PlotList(true));
+//        c=new Circle(150, 150, 10);
+        //this.setCurrentData(new PlotList(true));
         
         
         //Make Circles for draggable Towns
-        c.setOnMouseDragged((MouseEvent me) -> {
-            System.out.println("I get dragged");
-            double dX=me.getX()-c.getCenterX();
-            double dY=me.getY()-c.getCenterY();
-            c.setCenterX(me.getX());
-            c.setCenterY(me.getY());
-            
-        });
+//        c.setOnMouseDragged((MouseEvent me) -> {
+//            System.out.println("I get dragged");
+//            double dX=me.getX()-c.getCenterX();
+//            double dY=me.getY()-c.getCenterY();
+//            c.setCenterX(me.getX());
+//            c.setCenterY(me.getY());
+//            
+//        });
                this.getChildren().add(m);
-        this.getChildren().add(c);
+//        this.getChildren().add(c);
+
+this.widthProperty().addListener((obs, oldVal, newVal)->{System.err.println("width change");
+if(currentData!=null)currentData.evalBounds(this);
+});
         repaint();
         
     }
     
     public void setCurrentData(PlotList input)
     {
+        System.out.println("Got new Data");
         currentData=input;
         if(currentData==null)
             return;
+        this.getChildren().clear();
 
         TownList=input.towns;
         RoadList=input.roads;
@@ -65,6 +71,8 @@ public class PlotterPane extends Pane {
         {
             this.getChildren().add(r.line);
         }
+        
+        repaint();
     }
     
     
@@ -73,6 +81,8 @@ public class PlotterPane extends Pane {
     {
 
         Bounds b =this.getBoundsInLocal();
+        
+        
    
         llx=ulx=b.getMinX();
         urx=lrx=b.getMaxX();
@@ -84,9 +94,10 @@ public class PlotterPane extends Pane {
         m.setEndX(lrx);
         m.setEndY(lry);
  
-        System.out.println(ulx + " " + uly + " "+ lrx + " " + urx);
+        System.out.println("Coords: "+ulx + " " + uly + " "+ lrx + " " + lry);
         System.out.println("x: " + this.getLayoutX() + ", y " + this.getLayoutY());
         System.out.println("hx: " + this.getHeight() + ", hy " + this.getWidth());
+        if(currentData!=null)
         currentData.evalBounds(this);
        
         

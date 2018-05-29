@@ -18,7 +18,7 @@ import javafx.scene.shape.Circle;
  * @author Robert Martinu
  */
 public class Town {
-    static double scaleX=3, scaleY=1;
+    static double scaleX=3, scaleY=20;
     static double screenOffsetX=123, screenOffsetY=0;
     double newX,newY;
     Node myNode;
@@ -45,6 +45,13 @@ public class Town {
     circle.centerYProperty().bindBidirectional(myY); addListen();
     System.out.println("My X" + this.myNode.getX() + " and on Screen" + this.myX);
     System.out.println("My Y" + this.myNode.getY() + " and on Screen" + this.myY);
+    }
+    
+    public void Notify()
+    {
+        System.out.println("Updatin" + scaleX + " " + scaleY);
+        
+        myX.setValue(myNode.getX()*scaleX+screenOffsetX);myY.setValue(myNode.getY()*scaleY+screenOffsetY);
     }
     
     private void addListen()

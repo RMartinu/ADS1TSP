@@ -49,7 +49,7 @@ public class PlotList {
     for (Town t : towns)
     {
         t.addUpdateListener(l);
-        System.out.println("x " + t.myX + " to " + t.myY);
+        //System.out.println("x " + t.myX + " to " + t.myY);
     }
     
     Road r1=new Road(A,B);
@@ -66,7 +66,7 @@ public class PlotList {
     {
         if (r==null)
             continue;
-        System.out.println("from " + r.startX +", " + r.startY + " to " + r.line.endXProperty() + ", " + r.line.endYProperty());
+        //System.out.println("from " + r.startX +", " + r.startY + " to " + r.line.endXProperty() + ", " + r.line.endYProperty());
     }
     
     }
@@ -143,24 +143,25 @@ public class PlotList {
     
     public void evalBounds (Pane forPane)
     {
-        System.err.println(forPane.getWidth() + " " + forPane.getHeight());
+        System.err.println("Panel Size"+forPane.getWidth() + " " + forPane.getHeight());
         double pWith=forPane.getWidth()-30, pHeight=forPane.getHeight()-30;
-        if(pWith==0)
+        if(pWith<=50)
             pWith=200;
-        if(pHeight==0)
+        if(pHeight<=50)
             pHeight=200;
+        
         
         for (Town t: towns)
         {
-            if(t.getX()>this.maxX)
-                maxX=t.getX();
-            if(t.getX()<this.minX)
-                minX=t.getX();
+            if(t.myNode.getX()>this.maxX)
+                maxX=t.myNode.getX();
+            if(t.myNode.getX()<this.minX)
+                minX=t.myNode.getX();
             
-            if(t.getY()>this.maxY)
-                maxY=t.getY();
-            if(t.getY()<this.minY)
-                minY=t.getY();
+            if(t.myNode.getY()>this.maxY)
+                maxY=t.myNode.getY();
+            if(t.myNode.getY()<this.minY)
+                minY=t.myNode.getY();
         }
         System.err.println("MaxX: " + maxX + " minX: " + minX + " maxY: " + maxY + " minY: " + minY);
         
@@ -168,8 +169,14 @@ public class PlotList {
         scaX=pWith/(Math.abs(maxX-minX));
         scaY=pHeight/Math.abs(maxY-minY);
         System.err.println("scaX:" + scaX + " scaY: " + scaY);
+        Town.scaleX=scaX;
+        Town.scaleY=scaY;
+//        Town.scaleX=4;
+//        Town.scaleY=6;
         double offsetX, offsetY;
         double townCenterX=(maxX+minX)/2, townCenterY=(maxY+minY)/2;
+        for (Town t : towns)
+            t.Notify();
         
     }
     

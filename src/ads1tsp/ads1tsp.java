@@ -5,6 +5,7 @@
  */
 package ads1tsp;
 
+import ads1tsp.GUI.Plotter;
 import ads1tsp.GUI.PlotterPane;
 import ads1tsp.Solvers.DummySettingsPane;
 import ads1tsp.Solvers.DummySolver;
@@ -31,24 +32,26 @@ public class ads1tsp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        PlotterPane p = new PlotterPane();
-        PlotterPane q = new PlotterPane();
-        DummySettingsPane dp=new DummySettingsPane(new DummySolver());
-        p.setMinSize(300, 300);
-        q.setMinSize(300, 300);
-        //VBox v= new VBox(p,q);
-        BorderPane bp = new BorderPane();
-        bp.setBottom(q);
-        bp.setTop(p);
-        bp.setCenter(dp);
-        p.repaint();
-        q.repaint();
-        Scene s = new Scene(bp, 700, 700);
-        bp.setMinSize(300, 300);
+//        PlotterPane p = new PlotterPane();
+//        PlotterPane q = new PlotterPane();
+//        DummySettingsPane dp=new DummySettingsPane(new DummySolver());
+//        p.setMinSize(300, 300);
+//        q.setMinSize(300, 300);
+//        //VBox v= new VBox(p,q);
+//        BorderPane bp = new BorderPane();
+//        bp.setBottom(q);
+//        bp.setTop(p);
+//        bp.setCenter(dp);
+//        p.repaint();
+//        q.repaint();
+Plotter myPlotter=new Plotter();
+        Scene s = new Scene(myPlotter, 1000, 600);
+//        bp.setMinSize(300, 300);
         primaryStage.setScene(s);
+        s.widthProperty().addListener((obs,a,b)->{System.err.println("scene res");});
+        primaryStage.widthProperty().addListener((obs,a,b)->{System.err.println("Stage res");});
         primaryStage.show();
-        p.repaint();
-        q.repaint();
+     
     }
 
 }

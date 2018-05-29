@@ -21,12 +21,13 @@ public class DummySolver implements Solver {
     PlotList outDAta;
     @Override
     public void step() {
+        System.out.println("I'm tickin");
         if(!workData.isReady())
             return;
      
         Node[] nl=workData.getNodeList();
-        Node origin=nl[0];
-        for (int i =1;i<nl.length;i++)
+        Node origin=nl[(int)(Math.random()*nl.length)];
+        for (int i =0;i<nl.length;i++)
         {
             Node destiny=nl[i];
             outDAta.addRoad(origin, destiny);
