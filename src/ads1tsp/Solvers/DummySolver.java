@@ -28,7 +28,8 @@ public class DummySolver implements Solver {
         Node origin=nl[0];
         for (int i =1;i<nl.length;i++)
         {
-            
+            Node destiny=nl[i];
+            outDAta.addRoad(origin, destiny);
         }
         
     }

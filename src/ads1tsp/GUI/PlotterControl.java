@@ -21,7 +21,7 @@ public class PlotterControl extends  Pane{
     AdjacentList TSPData;
     Solver [] solvers;
     SettingsPane SolverSettings;
-    statisticsPane stats;
+    ReportPane stats;
     VBox verticalLayout;
     
     public PlotterControl(PlotterPane toPlot)

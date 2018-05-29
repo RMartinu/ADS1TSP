@@ -9,6 +9,6 @@ package ads1tsp.GUI;
  *
  * @author Robert Martinu
  */
-public class statisticsPane {
+public class ReportPane {
     
 }

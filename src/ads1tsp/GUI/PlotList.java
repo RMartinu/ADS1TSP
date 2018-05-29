@@ -53,7 +53,13 @@ public class PlotList {
     }
     
     Road r1=new Road(A,B);
+    Road lr=new Road(C,D,Color.CHARTREUSE);
+    Road inter = new Road (B,C, Color.INDIGO,0.74);
+    Road IIC = new Road(A,C,Color.AQUAMARINE,0.66);
     roads.add(r1);
+    roads.add(lr);
+    roads.add(inter);
+    roads.add(IIC);
 
     
     for (Road r : roads)
@@ -76,24 +82,39 @@ public class PlotList {
         }
         return null;
     }
-    public void AdTown(Town in){}
-    public void addRoad(Town A, Town B)
+    public void AddTown(Town in){}
+    public void addRoad(Town A, Town B, Color c, double density){
+                if(this.towns.contains(A) && this.towns.contains(B))
+        {
+            this.roads.add(new Road(A, B,c,density));
+        }
+    }
+    public void addRoad(Town A, Town B, Color c)
     {
         if(this.towns.contains(A) && this.towns.contains(B))
         {
-            this.roads.add(new Road(A, B));
+            this.roads.add(new Road(A, B,c));
         }
     }
-    
+    public void addRoad(Town A, Town B)
+    {
+        addRoad(A, B, Color.CYAN);
+    }
+    public void addRoad(Node A, Node B, Color c, double density){
+        Town start=findTownToNode(A);
+        Town end=findTownToNode(B);
+        addRoad(start, end, c, density);
+    }
+    public void addRoad(Node A, Node B, Color c){        Town start=findTownToNode(A);
+        Town end=findTownToNode(B);
+        addRoad(start, end, c);}
     public void addRoad(Node A, Node B)
     {
         Town start;
         start = findTownToNode(A);
         Town end;
         end = findTownToNode(B);
-        addRoad(start, end);
-        
-        
+        addRoad(start, end);   
     }
     
     public void removeRoad(Node start, Node end)

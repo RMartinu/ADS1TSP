@@ -46,8 +46,50 @@ public class Road {
         line.endYProperty().bind(endY);
   
     }
+    public Road (Town start, Town end, Color c)
+    {        color=c; density=0.25;
+        startX=new SimpleDoubleProperty();
+        startX.bind(start.myX);
+        startY=new SimpleDoubleProperty();
+        startY.bind(start.myY);
+        endX=new SimpleDoubleProperty();
+        endX.bind(end.myX);
+        endY=new SimpleDoubleProperty();
+        endY.bind(end.myY);
+        
+        line=new Line();
+        color=color.deriveColor(1, 1, 1, density);
+        line.setStroke(color);
+        line.setStrokeWidth(3);
+       
+        
+        line.startXProperty().bind(startX);
+        line.startYProperty().bind(startY);
+        line.endXProperty().bind(endX);
+        line.endYProperty().bind(endY);}
     public Road (Town start, Town end, Color c,double density)
-    {}
+    {
+                color=c;  this.density=density;
+        startX=new SimpleDoubleProperty();
+        startX.bind(start.myX);
+        startY=new SimpleDoubleProperty();
+        startY.bind(start.myY);
+        endX=new SimpleDoubleProperty();
+        endX.bind(end.myX);
+        endY=new SimpleDoubleProperty();
+        endY.bind(end.myY);
+        
+        line=new Line();
+        color=color.deriveColor(1, 1, 1, density);
+        line.setStroke(color);
+        line.setStrokeWidth(3);
+       
+        
+        line.startXProperty().bind(startX);
+        line.startYProperty().bind(startY);
+        line.endXProperty().bind(endX);
+        line.endYProperty().bind(endY);
+    }
     public DoubleProperty startXProperty(){return startX;}
     public DoubleProperty startYProperty(){return startY;}
     public DoubleProperty endXProperty(){return endX;}
