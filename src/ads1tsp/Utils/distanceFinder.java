@@ -11,7 +11,7 @@ package ads1tsp.Utils;
  */
 public interface distanceFinder {
 
-    public void addNode(Node A);
+    public boolean addNode(Node A);
     
     public Node extractClosestNeighbor( Node A);
     

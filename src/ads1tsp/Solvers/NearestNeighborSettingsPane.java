@@ -5,22 +5,14 @@
  */
 package ads1tsp.Solvers;
 
-import javafx.scene.control.Control;
-import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
-
 /**
  *
  * @author Robert Martinu
  */
-public class SettingsPane extends Pane {
+class NearestNeighborSettingsPane extends SettingsPane {
     
-    public SettingsPane()
-    {
-        
+    public NearestNeighborSettingsPane(Solver in) {
+       // super(in);
     }
-    
-    
-  
     
 }

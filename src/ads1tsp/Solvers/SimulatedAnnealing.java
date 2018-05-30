@@ -6,6 +6,7 @@
 package ads1tsp.Solvers;
 
 import ads1tsp.GUI.PlotList;
+import ads1tsp.Updateable;
 import ads1tsp.Utils.AdjacentList;
 import ads1tsp.Utils.Statistics;
 
@@ -52,6 +53,11 @@ public class SimulatedAnnealing implements Solver  {
 
     @Override
     public boolean isReady() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setListener(Updateable that) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

@@ -6,6 +6,7 @@
 package ads1tsp.Utils;
 
 import ads1tsp.Updateable;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -16,6 +17,8 @@ public class PlainAdjacentList implements AdjacentList,Updateable{
     boolean isReady=false;
     int length;
     HashMap<String, Node>  NodeHashList;
+    Updateable listener;
+    int currentListenerIndex;
     
     Node [] NodeList;
     double Adjacents[][];
@@ -23,9 +26,11 @@ public class PlainAdjacentList implements AdjacentList,Updateable{
     public PlainAdjacentList()
     {
         NodeHashList=new HashMap<>();
+       
     }
     public PlainAdjacentList(Node[] inputList)
     {
+        //listener=new Updateable[10];
         NodeHashList=new HashMap<>();
         NodeList= new Node[inputList.length];
         //System.arraycopy(inputList, 0, NodeList, 0, inputList.length);
@@ -34,7 +39,7 @@ public class PlainAdjacentList implements AdjacentList,Updateable{
             NodeList[i]=inputList[i];
             NodeList[i].setIndex(i);
             //NodeHashList.put(Integer.toString(inputList[i].index), inputList[i]);
-            System.out.print(NodeList[i].toString());
+           // System.out.print(NodeList[i].toString());
         }
         
         buildAdjacentList();
@@ -44,7 +49,10 @@ public class PlainAdjacentList implements AdjacentList,Updateable{
     private void buildAdjacentList()
     {
         System.out.println("\n now Building");
+        for (Node n: NodeList)
+            n.setListener(this);
         int numberOfNodes=NodeList.length;
+        System.err.println("NumOfNodes" + numberOfNodes);
         length=numberOfNodes;
         Adjacents=new double[numberOfNodes][];
         for (int i = 0;i<Adjacents.length; i++)
@@ -54,12 +62,14 @@ public class PlainAdjacentList implements AdjacentList,Updateable{
             {
                // Adjacents[i][j]=NodeList[i].calculateDistance(NodeList[j]);
                 Adjacents[i][j]=Node.calculateDistance(NodeList[i], NodeList[j]);
+                //System.out.println("Dist: " + Node.calculateDistance(NodeList[i], NodeList[j]) + " bet " + NodeList[i].toString() + " & " + NodeList[j].toString());
             }
         }
         this.isReady=true;
-        System.out.println("Done");
-        this.print();
-        System.out.println("And Done");
+       
+ 
+        
+        
                 
         
     }
@@ -76,18 +86,22 @@ public class PlainAdjacentList implements AdjacentList,Updateable{
         System.err.print("rebuilding...");
         buildAdjacentList();
         System.err.println("Done");
+                isReady=true;
+        
     }
     
     
     public void addNode(Node A){
         System.out.println("    shoudl do somehing");
+        isReady=false;
+        A.index=NodeList.length;
         Node [] tempNodeList=new Node[NodeList.length+1];
         for (int i =0; i<NodeList.length; i++)
         {tempNodeList[i]=NodeList[i];}
         tempNodeList[tempNodeList.length-1]=A;
         NodeList=tempNodeList;
         rebuildAdjacentList();
-        isReady=true;
+
     }
     
     double getDistance(Node A, Node B)
@@ -104,7 +118,18 @@ public class PlainAdjacentList implements AdjacentList,Updateable{
     @Override
     public void Notify() {
         System.out.println("k, lets start this all over...");
+        clearUnusedNodes();
+
+
         isReady=false;
+       rebuildAdjacentList();
+       sendNotification();
+    }
+    private void sendNotification()
+    {
+        if(listener!=null)
+        {System.out.println("PADJL sends to " + listener.toString());
+            listener.Notify();}
     }
 
     @Override
@@ -126,7 +151,7 @@ public class PlainAdjacentList implements AdjacentList,Updateable{
            {System.err.println("empty");
            return;
            }
-           System.out.print(n);
+           //System.out.print(n);
        }
        System.out.println("\nnext");
        
@@ -141,6 +166,40 @@ public class PlainAdjacentList implements AdjacentList,Updateable{
     @Override
     public boolean isReady() {
        return this.isReady;
+    }
+
+    @Override
+    public void removeNode(Node in) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+   
+
+    @Override
+    public void clearUnusedNodes() {
+        System.out.println("cleaning up");
+        int survivors=0;
+        for (int i =0; i<NodeList.length; ++i)
+        {if(NodeList[i].index==-1){NodeList[i]=null;}else survivors++;}
+        Node []tempList=new Node[survivors];
+        int j=0;
+        for (int i =0; i<NodeList.length;i++)
+        {
+            if(NodeList[i]!=null)
+            {
+                tempList[j]=NodeList[i];j++;
+            }
+        }
+        NodeList=tempList;
+        
+        for (Node n: NodeList)
+            System.out.println(n.toString());
+        rebuildAdjacentList();
+    }
+
+    @Override
+    public void setListener(Updateable that) {
+        this.listener=that;
     }
 
 }

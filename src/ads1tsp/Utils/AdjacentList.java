@@ -21,6 +21,10 @@ public interface AdjacentList extends Updateable {
      */
     public Node[] getNodeList();
     public void rebuildAdjacentList();
+    public void addNode( Node in);
+    public void removeNode(Node in);
+    
+    public void clearUnusedNodes();
 
     /**
      *

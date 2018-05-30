@@ -6,8 +6,10 @@
 package ads1tsp.GUI;
 
 import ads1tsp.Solvers.DummySolver;
+import ads1tsp.Solvers.NearestNeighbor;
 import ads1tsp.Solvers.SettingsPane;
 import ads1tsp.Solvers.Solver;
+import ads1tsp.Updateable;
 import ads1tsp.Utils.AdjacentList;
 import ads1tsp.Utils.FileIO;
 import ads1tsp.Utils.PlainAdjacentList;
@@ -29,7 +31,7 @@ import javafx.scene.layout.VBox;
  * @author Robert Martinu
 public class PlotterControl extends  HB
  */
-public class PlotterControl extends  VBox{
+public class PlotterControl extends  VBox implements Updateable{
     PlotterPane output;
     PlotList dataOutput;
     AdjacentList TSPData;
@@ -67,8 +69,11 @@ public class PlotterControl extends  VBox{
         } catch (FileNotFoundException ex) {
             Logger.getLogger(PlotterControl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        currentSolver=new DummySolver();
+       // currentSolver=new NearestNeighbor();
+       currentSolver=new DummySolver();
+       currentSolver.setListener(this);
         this.SolverSettings=currentSolver.getSettingsPane();
+        this.setSolver();
         this.getChildren().add(SolverSettings);
         if(TSPData!=null)
         {currentSolver.addAdjacentList(TSPData);}
@@ -80,5 +85,25 @@ public class PlotterControl extends  VBox{
         
     }
     
+    void triggerUpdate()
+    {System.out.println("I'm triggered");
+    }
+    
+    private void setSolver()
+    {
+        output.setListener(currentSolver);
+    }
+
+    @Override
+    public void Notify() {
+        System.out.println("I am the god of a new world");
+                       dataOutput=currentSolver.getPlotList();
+               output.setCurrentData(dataOutput);
+    }
+
+    @Override
+    public void setListener(Updateable that) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

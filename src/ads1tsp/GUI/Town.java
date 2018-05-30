@@ -17,39 +17,45 @@ import javafx.scene.shape.Circle;
  *
  * @author Robert Martinu
  */
-public class Town {
+public class Town implements Updateable{
     static double scaleX=3, scaleY=20;
     static double screenOffsetX=123, screenOffsetY=0;
     double newX,newY;
     Node myNode;
     Color myColor;
     SimpleDoubleProperty myX, myY;
-    ArrayList<Updateable> clients;
+    Updateable listener;
     Circle circle;
     public static void setScaleX(double x){scaleX=x;}
     public static void setScaleY(double y){scaleY=y;}
     
     public Town (Node n)
-    {myNode=n; myColor=Color.RED; clients=new ArrayList<>();
+    {myNode=n; myColor=Color.RED; //clients=new ArrayList<>();
+    n.setListener(this);
         myX=new SimpleDoubleProperty(myNode.getX()*scaleX+screenOffsetX); myY=new SimpleDoubleProperty(myNode.getY()*scaleY+screenOffsetY);
     circle=new Circle(10);circle.centerXProperty().bindBidirectional(myX);
     circle.centerYProperty().bindBidirectional(myY); addListen();
-    System.out.println("My X" + this.myNode.getX() + " and on Screen" + this.myX);
-    System.out.println("My Y" + this.myNode.getY() + " and on Screen" + this.myY);
+//    System.out.println("My X" + this.myNode.getX() + " and on Screen" + this.myX);
+//    System.out.println("My Y" + this.myNode.getY() + " and on Screen" + this.myY);
     
     }
     public Town (Node n, Color c)
-    {myNode=n; myColor=c; clients = new ArrayList<>(); 
+    {myNode=n; myColor=c; //clients = new ArrayList<>(); 
+    n.setListener(this);
     myX=new SimpleDoubleProperty(myNode.getX()*scaleX+screenOffsetX); myY=new SimpleDoubleProperty(myNode.getY()*scaleY+screenOffsetY);
-    circle=new Circle(10);circle.centerXProperty().bindBidirectional(myX);
+    circle=new Circle(15);circle.centerXProperty().bindBidirectional(myX);
     circle.centerYProperty().bindBidirectional(myY); addListen();
-    System.out.println("My X" + this.myNode.getX() + " and on Screen" + this.myX);
-    System.out.println("My Y" + this.myNode.getY() + " and on Screen" + this.myY);
+//    System.out.println("My X" + this.myNode.getX() + " and on Screen" + this.myX);
+//    System.out.println("My Y" + this.myNode.getY() + " and on Screen" + this.myY);
     }
     
+
+   
+    public Node fetchMyNode()
+    {return this.myNode;}
     public void Notify()
     {
-        System.out.println("Updatin" + scaleX + " " + scaleY);
+        //System.out.println("Updatin" + scaleX + " " + scaleY);
         
         myX.setValue(myNode.getX()*scaleX+screenOffsetX);myY.setValue(myNode.getY()*scaleY+screenOffsetY);
     }
@@ -62,18 +68,17 @@ public class Town {
             double dY=me.getY()-circle.getCenterY();
             circle.setCenterX(me.getX());
             circle.setCenterY(me.getY());
+            me.consume();
             this.Update();
         });
+        
+        circle.addEventFilter(MouseEvent.MOUSE_CLICKED,(MouseEvent me)->{System.out.println("eat klick"); me.consume();if(me.isControlDown()){System.out.println("Target Splashed");this.myNode.setIndex(-1);SendMessage();}});
+        //circle.setOnMouseClicked((MouseEvent me)->{System.out.println("eat klick"); me.consume();});
     }
     
-    public void  addUpdateListener(Updateable client)
-    {
-        this.clients.add(client);
-    }
-    public void removeUpdateListener(Updateable client)
-    {
-        this.clients.remove(client);
-    }
+ 
+    private void SendMessage(){if(listener!=null){listener.Notify();System.out.println("Notified: " + listener.toString());}else System.err.println("AAA");};
+
     
     
     public DoubleProperty XProperty(){return myX;}
@@ -87,11 +92,16 @@ public class Town {
         newX=(getX()-screenOffsetX)/scaleX;
         newY=(getY()-screenOffsetY)/scaleY;
         this.myNode.setCoordinates(newX, newY);
-        for (Updateable client: clients)
-            client.Notify();
-        System.out.println("Said hello to my little friends");
-            System.out.println("My X" + this.myNode.getX() + " and on Screen" + this.myX + " I should be: "+newX);
-    System.out.println("My Y" + this.myNode.getY() + " and on Screen" + this.myY + " I should be: "+newY);
+//        for (Updateable client: clients)
+//            client.Notify();
+//        System.out.println("Said hello to my little friends");
+//            System.out.println("My X" + this.myNode.getX() + " and on Screen" + this.myX + " I should be: "+newX);
+//    System.out.println("My Y" + this.myNode.getY() + " and on Screen" + this.myY + " I should be: "+newY);
+    }
+
+    @Override
+    public void setListener(Updateable that) {
+       this.listener=that;
     }
     
     

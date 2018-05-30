@@ -5,6 +5,8 @@
  */
 package ads1tsp.GUI;
 
+import ads1tsp.Solvers.Solver;
+import ads1tsp.Updateable;
 import ads1tsp.Utils.AdjacentList;
 import ads1tsp.Utils.PlainAdjacentList;
 import ads1tsp.Utils.AugmentedAdjacentList;
@@ -18,16 +20,26 @@ import javafx.scene.paint.Color;
  *
  * @author Robert Martinu
  */
-public class PlotList {
+public class PlotList implements Updateable {
     
     double maxX=Double.MIN_VALUE, minX=Double.MAX_VALUE, maxY=Double.MIN_VALUE, minY=Double.MAX_VALUE;
     AdjacentList l;
     ArrayList<Road> roads;
     ArrayList<Town> towns;
-    public PlotList()
+    Updateable listener;
+    Solver creator;
+
+    
+    private void sendMessage()
+    {
+        if(listener!=null)
+            listener.Notify();
+    }
+    public PlotList(Solver that)
     {
         roads=new ArrayList<>();
         towns=new ArrayList<>();
+        creator=that;
                 
     }
     public PlotList (boolean test)
@@ -48,7 +60,7 @@ public class PlotList {
     
     for (Town t : towns)
     {
-        t.addUpdateListener(l);
+        
         //System.out.println("x " + t.myX + " to " + t.myY);
     }
     
@@ -72,7 +84,17 @@ public class PlotList {
     }
     
     public void addNode(Node input)
-    {}
+    {
+        //comes most likely from the input pane
+                l.addNode(input);
+    }
+    
+    public void addNode(double x, double y)
+    {
+        Node n=new Node(x/Town.scaleX, y/Town.scaleY);
+        this.l.addNode(n);
+        
+    }
     private Town findTownToNode(Node in)
     {
         for (Town t: towns)
@@ -82,7 +104,16 @@ public class PlotList {
         }
         return null;
     }
-    public void AddTown(Town in){}
+    public void AddTown(Town in){
+        //comes fom Pane
+
+        
+    }
+    
+    public void removeTown(Town toKill)
+    {
+        this.l.removeNode(toKill.myNode);
+    }
     public void addRoad(Town A, Town B, Color c, double density){
                 if(this.towns.contains(A) && this.towns.contains(B))
         {
@@ -183,35 +214,47 @@ public class PlotList {
     
     public void generateFromAdjacentList(PlainAdjacentList List)
     {
+      
         generateFromAdjacentList(List, null);
+        sendMessage();
     }
     
     public void generateFromAdjacentList(AugmentedAdjacentList List)
     {
+        
         generateFromAdjacentList(List, null);
+        sendMessage();
     }
     public void generateFromAdjacentList(PlainAdjacentList input, ArrayList<Link> links)
     {
+        
+        l=input;
         Node [] tList = input.getNodeList();
+        
         towns.ensureCapacity(tList.length);
+        if(links!=null)
+                 for (Link l:links)
+         {
+             Town start=towns.get(l.getStartNode().getIndex());
+             Town end=towns.get(l.getEndNode().getIndex());
+             roads.add(new Road(start,end));
+         }
         for (int i =0;i<tList.length;++i)
         {
-            towns.add(new Town(tList[i], Color.RED));
+            Town t=new Town(tList[i], Color.RED);
+            t.listener=l;
+            towns.add(t);
         }
-        if(links==null)
-            return;
+        
+//        if(links==null)
+//            return;
         
 //        for (Link l : links)
 //        {
 //            roads.add(new Road(l.getStartNode(), l.getEndNode()));
 //        }
 
-         for (Link l:links)
-         {
-             Town start=towns.get(l.getStartNode().getIndex());
-             Town end=towns.get(l.getEndNode().getIndex());
-             roads.add(new Road(start,end));
-         }
+
         
 
         
@@ -221,9 +264,23 @@ public class PlotList {
     
     public void generateFromAdjacentList(AugmentedAdjacentList input, ArrayList<Link> links)
     {
+        l=input;
         generateFromAdjacentList(input.getPlainList(), links);
         
         
+    }
+
+    @Override
+    public void Notify() {
+       System.out.println("Plotlist feels notified");
+        if ( l instanceof AugmentedAdjacentList)
+        generateFromAdjacentList((AugmentedAdjacentList)l);
+        else generateFromAdjacentList((PlainAdjacentList)l);
+    }
+
+    @Override
+    public void setListener(Updateable that) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

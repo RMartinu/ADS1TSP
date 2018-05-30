@@ -33,6 +33,7 @@ public class Plotter extends Pane{
         plotPane.setPrefHeight(600);
         
         plotControl=new PlotterControl(this);
+        
 //        plotControl.setMaxWidth(250);
 //        plotControl.setMinWidth(250);
 //        plotControl.setPrefWidth(300);

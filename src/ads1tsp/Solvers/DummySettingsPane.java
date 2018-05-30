@@ -18,7 +18,7 @@ public class DummySettingsPane extends SettingsPane{
     VBox VLayout;
     public DummySettingsPane(DummySolver in)
     {
-        super(in);
+        //super(in);
         l1=new Label("Just a Standin");
         l2=new Label("Nothin' to see");
         VLayout=new VBox(l1,l2);

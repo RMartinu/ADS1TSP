@@ -20,8 +20,8 @@ public class SimpleNodeList implements distanceFinder {
     }
 
     @Override
-    public void addNode(Node A) {
-        listOfNodes.add(A);
+    public boolean addNode(Node A) {
+        return listOfNodes.add(A);
     }
 
     @Override

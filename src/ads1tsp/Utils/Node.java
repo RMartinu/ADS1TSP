@@ -5,14 +5,18 @@
  */
 package ads1tsp.Utils;
 
+import ads1tsp.Updateable;
+
 /**
  *
  * @author Robert Martinu
  */
-public class Node {
+public class Node  implements Updateable{
     String Name;
     double x,y;
     int index;
+    Updateable listener;
+    
     
     
     public Node (double x, double y)
@@ -67,6 +71,19 @@ public class Node {
     public String toString()
     {
         return ("i: " + index + " name: "  + Name + " X: " +x + " Y:" + y);
+    }
+
+    @Override
+    public void Notify() {
+        if(listener!=null)
+            listener.Notify();
+        
+        
+    }
+
+    @Override
+    public void setListener(Updateable that) {
+        this.listener=that;
     }
     
     

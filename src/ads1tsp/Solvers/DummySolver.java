@@ -6,11 +6,13 @@
 package ads1tsp.Solvers;
 
 import ads1tsp.GUI.PlotList;
+import ads1tsp.Updateable;
 import ads1tsp.Utils.AdjacentList;
 import ads1tsp.Utils.Node;
 import ads1tsp.Utils.PlainAdjacentList;
 import ads1tsp.Utils.Statistics;
 import ads1tsp.Utils.TimeKeeper;
+import java.util.ArrayList;
 import javafx.scene.paint.Color;
 
 /**
@@ -23,6 +25,7 @@ public class DummySolver implements Solver {
     PlotList outDAta;
     TimeKeeper timek;
     Statistics myStat;
+    Updateable listener;
     Color []rainbow={Color.ALICEBLUE,Color.GREEN,Color.RED,Color.BLUEVIOLET,Color.PLUM,Color.BEIGE,Color.CRIMSON,Color.DARKMAGENTA};
     public DummySolver()
     {
@@ -30,6 +33,12 @@ public class DummySolver implements Solver {
         myStat=new Statistics("Virgn Snow");
         //rainbow=[Color.ALICEBLUE,];
         
+        
+    }
+    private void sendNotification()
+    {
+        if(listener!=null)
+        listener.Notify();
     }
     @Override
     public void step() {
@@ -37,6 +46,8 @@ public class DummySolver implements Solver {
         if(!workData.isReady())
             return;
      //Execute the actual business logic here
+     outDAta=new PlotList(this);
+     this.addAdjacentList(workData);
      
      timek.start();
         Node[] nl=workData.getNodeList();
@@ -59,8 +70,10 @@ public class DummySolver implements Solver {
     @Override
     public void addAdjacentList(AdjacentList input) {
         workData=input;
-        outDAta=new PlotList();
+        workData.setListener(this);
+        outDAta=new PlotList(this);
         outDAta.generateFromAdjacentList((PlainAdjacentList)workData);
+        sendNotification();
         
     }
 
@@ -78,6 +91,10 @@ public class DummySolver implements Solver {
 
     @Override
     public void Notify() {
+        System.out.println("DummyPlug got a call");
+        outDAta=new PlotList(this);
+        outDAta.generateFromAdjacentList((PlainAdjacentList)workData);
+        sendNotification();
         
     }
 
@@ -90,5 +107,10 @@ public class DummySolver implements Solver {
     @Override
     public boolean isReady() {
         return true;   }
+
+    @Override
+    public void setListener(Updateable that) {
+        this.listener=that;
+    }
     
 }

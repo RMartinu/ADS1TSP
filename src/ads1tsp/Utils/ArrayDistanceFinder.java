@@ -17,8 +17,12 @@ public class ArrayDistanceFinder implements distanceFinder{
     }
 
     @Override
-    public void addNode(Node A) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean addNode(Node A) {
+        
+        return this.workset.add(A);
+        
+        
+        
     }
 
     @Override

@@ -24,4 +24,5 @@ public interface Solver extends Updateable{
     public boolean isReady();
     
     
+    
 }

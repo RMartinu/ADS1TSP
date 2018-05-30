@@ -19,12 +19,12 @@ public class ArrayReservoir implements Reservoir{
     }
 
     @Override
-    public void add(Node a) {
+    public boolean add(Node a) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void add(Node[] a) {
+    public boolean add(Node[] a) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

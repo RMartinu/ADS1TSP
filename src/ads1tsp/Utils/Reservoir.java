@@ -11,8 +11,8 @@ package ads1tsp.Utils;
  */
 public interface Reservoir {
     
-    public void add(Node a);
-    public void add(Node []a);
+    public boolean add(Node a);
+    public boolean add(Node []a);
     public Node getNext();
     public Node getByName(String s);
     public Node getByIndex(int i);
