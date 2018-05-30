@@ -10,6 +10,8 @@ import ads1tsp.Utils.AdjacentList;
 import ads1tsp.Utils.Node;
 import ads1tsp.Utils.PlainAdjacentList;
 import ads1tsp.Utils.Statistics;
+import ads1tsp.Utils.TimeKeeper;
+import javafx.scene.paint.Color;
 
 /**
  *
@@ -19,19 +21,33 @@ public class DummySolver implements Solver {
 
     AdjacentList workData;
     PlotList outDAta;
+    TimeKeeper timek;
+    Statistics myStat;
+    Color []rainbow={Color.ALICEBLUE,Color.GREEN,Color.RED,Color.BLUEVIOLET,Color.PLUM,Color.BEIGE,Color.CRIMSON,Color.DARKMAGENTA};
+    public DummySolver()
+    {
+        timek=new TimeKeeper();
+        myStat=new Statistics("Virgn Snow");
+        //rainbow=[Color.ALICEBLUE,];
+        
+    }
     @Override
     public void step() {
         System.out.println("I'm tickin");
         if(!workData.isReady())
             return;
+     //Execute the actual business logic here
      
+     timek.start();
         Node[] nl=workData.getNodeList();
         Node origin=nl[(int)(Math.random()*nl.length)];
-        for (int i =0;i<nl.length;i++)
-        {
-            Node destiny=nl[i];
-            outDAta.addRoad(origin, destiny);
+        Color current=rainbow[(int)(Math.random()*rainbow.length)];
+        for (Node destiny : nl) {
+            outDAta.addRoad(origin, destiny,current,0.15);
         }
+        timek.stop();
+        myStat.increment();
+        this.myStat.setMessage("Iteration: "+myStat.getIterations()+""+"\nLast It: " + timek.getIterationZime()/1000000 + "ms "+(timek.getIterationZime()%1000000)/1000+"us " + "\nTotal: " + timek.getTotalTime()/1000000+"ms "+ (timek.getTotalTime()%1000000)/1000+"us");
         
     }
 
@@ -55,7 +71,9 @@ public class DummySolver implements Solver {
 
     @Override
     public Statistics getStatistics() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Statistics s = new Statistics("Gaga");
+        
+        return this.myStat;
     }
 
     @Override

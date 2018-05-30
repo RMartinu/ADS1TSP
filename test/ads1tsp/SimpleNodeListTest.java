@@ -66,7 +66,7 @@ public class SimpleNodeListTest {
         instance.addNode(B);
         instance.addNode(C);
         Node expResult = B;
-        Node result = instance.findClosestNeighbor(A);
+        Node result = instance.extractClosestNeighbor(A);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");

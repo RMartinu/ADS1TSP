@@ -25,7 +25,7 @@ public class SimpleNodeList implements distanceFinder {
     }
 
     @Override
-    public Node findClosestNeighbor(Node A) {
+    public Node extractClosestNeighbor(Node A) {
         Node candidate = null;
         double minDistance = Double.MAX_VALUE;
         double currentDistance;

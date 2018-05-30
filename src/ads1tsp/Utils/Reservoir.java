@@ -17,6 +17,7 @@ public interface Reservoir {
     public Node getByName(String s);
     public Node getByIndex(int i);
     public Node extractRandom();
+    public Node extractNode(Node A);
     public int getLength();
            
     

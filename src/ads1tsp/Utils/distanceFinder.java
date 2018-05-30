@@ -10,8 +10,10 @@ package ads1tsp.Utils;
  * @author Robert Martinu
  */
 public interface distanceFinder {
+
     public void addNode(Node A);
-    public Node findClosestNeighbor( Node A);
+    
+    public Node extractClosestNeighbor( Node A);
     
     
 }

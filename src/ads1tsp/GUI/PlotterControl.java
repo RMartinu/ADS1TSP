@@ -11,6 +11,7 @@ import ads1tsp.Solvers.Solver;
 import ads1tsp.Utils.AdjacentList;
 import ads1tsp.Utils.FileIO;
 import ads1tsp.Utils.PlainAdjacentList;
+import ads1tsp.Utils.Statistics;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
@@ -39,9 +40,9 @@ public class PlotterControl extends  VBox{
     VBox verticalLayout;
     Button Launch;
     
-    public PlotterControl(PlotterPane toPlot)
+    public PlotterControl(Plotter toPlot)
     {
-        output=toPlot;
+        output=toPlot.plotPane;
         Label l = new Label("Muffin");
         Launch=new Button("Launch");
         Launch.setOnAction(new EventHandler<ActionEvent>() {
@@ -51,6 +52,11 @@ public class PlotterControl extends  VBox{
                currentSolver.step();
                dataOutput=currentSolver.getPlotList();
                output.setCurrentData(dataOutput);
+               Statistics s;
+               s=currentSolver.getStatistics();
+               
+               toPlot.report.L.setText(s.getMessage());
+               
                
             }
         });
@@ -62,6 +68,8 @@ public class PlotterControl extends  VBox{
             Logger.getLogger(PlotterControl.class.getName()).log(Level.SEVERE, null, ex);
         }
         currentSolver=new DummySolver();
+        this.SolverSettings=currentSolver.getSettingsPane();
+        this.getChildren().add(SolverSettings);
         if(TSPData!=null)
         {currentSolver.addAdjacentList(TSPData);}
         else{System.err.println("TSP empty");}

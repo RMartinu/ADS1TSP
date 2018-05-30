@@ -19,8 +19,8 @@ import javafx.scene.layout.Priority;
  */
 public class Plotter extends Pane{
     PlotterPane plotPane;
-    PlotterControl plotControl;
-    HBox HLayout;
+    PlotterControl plotControl;ReportPane report;
+    BorderPane HLayout;
     
     public Plotter()
     {
@@ -32,16 +32,21 @@ public class Plotter extends Pane{
         plotPane.setPrefWidth(750);
         plotPane.setPrefHeight(600);
         
-        plotControl=new PlotterControl(plotPane);
+        plotControl=new PlotterControl(this);
 //        plotControl.setMaxWidth(250);
 //        plotControl.setMinWidth(250);
 //        plotControl.setPrefWidth(300);
 //        plotControl.setLayoutX(900);
+report=new ReportPane();
 
-        HLayout=new HBox();
-        HLayout.alignmentProperty().setValue(Pos.CENTER_RIGHT);
-        HLayout.getChildren().add(plotControl);
-        HLayout.getChildren().add(plotPane);
+        HLayout=new BorderPane();
+        
+//        HLayout.getChildren().add(plotControl);
+//        HLayout.getChildren().add(plotPane);
+//        HLayout.getChildren().add(report)
+HLayout.setLeft(plotControl);
+HLayout.setRight(plotPane);
+HLayout.setBottom(report);
        
         
         ;

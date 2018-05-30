@@ -45,7 +45,7 @@ public class ads1tsp extends Application {
 //        p.repaint();
 //        q.repaint();
 Plotter myPlotter=new Plotter();
-        Scene s = new Scene(myPlotter, 1000, 600);
+        Scene s = new Scene(myPlotter, 1000, 700);
 //        bp.setMinSize(300, 300);
         primaryStage.setScene(s);
         s.widthProperty().addListener((obs,a,b)->{System.err.println("scene res");});

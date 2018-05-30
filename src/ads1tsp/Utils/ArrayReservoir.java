@@ -5,11 +5,18 @@
  */
 package ads1tsp.Utils;
 
+import java.util.LinkedList;
+
 /**
  *
  * @author Robert Martinu
  */
 public class ArrayReservoir implements Reservoir{
+    Node [] nodes;
+    public ArrayReservoir (Node[] inList)
+    {
+        nodes=inList.clone();
+    }
 
     @Override
     public void add(Node a) {
@@ -23,7 +30,16 @@ public class ArrayReservoir implements Reservoir{
 
     @Override
     public Node getNext() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (int i =0; i<nodes.length;i++)
+        {
+            if(nodes[i]!=null)
+            {
+                Node t=nodes[i];
+                nodes[i]=null;
+                return t;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -43,6 +59,11 @@ public class ArrayReservoir implements Reservoir{
 
     @Override
     public int getLength() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Node extractNode(Node A) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

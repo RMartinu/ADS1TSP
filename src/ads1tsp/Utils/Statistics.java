@@ -10,5 +10,29 @@ package ads1tsp.Utils;
  * @author Robert Martinu
  */
 public class Statistics {
+    String Message;
+    int Iterations;
+    
+    public Statistics()
+    {Iterations=0;}
+    public Statistics(String in)
+    {
+        Message=in;
+        Iterations=0;
+    }
+    public void increment()
+    {
+        Iterations++;
+    }
+    public int getIterations(){return Iterations;}
+    
+    public void setMessage(String in)
+    {
+        this.Message=in;
+    }
+    
+    public String getMessage()
+    {return Message;
+    }
     
 }

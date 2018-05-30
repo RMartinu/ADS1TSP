@@ -12,11 +12,16 @@ package ads1tsp.Utils;
 public class TimeKeeper {
     long totalEecutionTime;
     long timeForLastIteration;
+    long begin, end;
     public TimeKeeper()
     {
        
         long nanoTime = System.nanoTime();
         
     }
-    
+    public void reset(){totalEecutionTime=0; timeForLastIteration=0;}
+    public void start(){begin=System.nanoTime();}
+    public void stop(){end=System.nanoTime();timeForLastIteration=Math.abs(end-begin);totalEecutionTime+=timeForLastIteration;}
+    public long getTotalTime(){return totalEecutionTime;}
+    public long getIterationZime(){return timeForLastIteration;}    
 }
