@@ -23,5 +23,5 @@ public class TimeKeeper {
     public void start(){begin=System.nanoTime();}
     public void stop(){end=System.nanoTime();timeForLastIteration=Math.abs(end-begin);totalEecutionTime+=timeForLastIteration;}
     public long getTotalTime(){return totalEecutionTime;}
-    public long getIterationZime(){return timeForLastIteration;}    
+    public long getIterationTime(){return timeForLastIteration;}    
 }

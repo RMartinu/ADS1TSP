@@ -18,7 +18,6 @@ public interface Solver extends Updateable{
     public void step();
     public PlotList getPlotList();
     public void addAdjacentList(AdjacentList input);
-    public void addControlPanel();
     public Statistics getStatistics();
     public SettingsPane getSettingsPane();
     public boolean isReady();

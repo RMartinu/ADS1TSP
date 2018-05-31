@@ -11,10 +11,18 @@ package ads1tsp.Utils;
  */
 public class ArrayDistanceFinder implements distanceFinder{
     Reservoir workset;
+    Node []n;
     public ArrayDistanceFinder(Reservoir in)
     {
         workset=in;
+        n=in.getData();
+        System.out.println("workset + "+workset.toString());
+        for (Node n1:n)
+        {
+            System.out.println(n1);
+        }
     }
+   
 
     @Override
     public boolean addNode(Node A) {
@@ -28,21 +36,30 @@ public class ArrayDistanceFinder implements distanceFinder{
     @Override
     public Node extractClosestNeighbor(Node A) {
         Node nearest=null;
-        int nearestIndex;
         double minDistance=Double.MAX_VALUE;
-        
-        nearest=workset.getByIndex(0);
-        for (int i=0; i<workset.getLength(); i++)
+        int nearestIndex=0;
+        boolean isEmpty=true;
+        for (int i=0; i<n.length; i++)
         {
-            if (minDistance<Node.calculateDistance(A, workset.getByIndex(i)))
+            if (n[i]!=null)
             {
-                if(A==nearest)
-                    continue;
-                nearest=workset.getByIndex(i);
-                minDistance=Node.calculateDistance(A, nearest);
+                isEmpty=false;
+                Node t=n[i];
+                double distance=A.calculateDistance(t);
+                if (distance<minDistance)
+                {
+                    minDistance=distance;
+                    nearest=t;
+                    nearestIndex=i;
+                }
+                
             }
         }
-        workset.extractNode(nearest);
+        if(isEmpty)
+            return null;
+        
+        n[nearestIndex]=null;
+
         
         return nearest;
     

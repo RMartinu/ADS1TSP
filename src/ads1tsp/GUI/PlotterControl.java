@@ -41,6 +41,7 @@ public class PlotterControl extends  VBox implements Updateable{
     ReportPane stats;
     VBox verticalLayout;
     Button Launch;
+    Button Start, Stop;
     
     public PlotterControl(Plotter toPlot)
     {
@@ -62,22 +63,28 @@ public class PlotterControl extends  VBox implements Updateable{
                
             }
         });
-        verticalLayout=new VBox(l,Launch);
+        Start=new Button("Start");
+        
+        Stop=new Button("Stop");
+        
+        verticalLayout=new VBox(l,Launch, Start,Stop);
         this.getChildren().add(verticalLayout);
         try {
             TSPData=FileIO.NodeListFromFile(new File("D:\\TSP1.tsp"));
         } catch (FileNotFoundException ex) {
             Logger.getLogger(PlotterControl.class.getName()).log(Level.SEVERE, null, ex);
         }
-       // currentSolver=new NearestNeighbor();
-       currentSolver=new DummySolver();
+        //currentSolver=new DummySolver();
+        currentSolver=new NearestNeighbor();
+                if(TSPData!=null)
+        {currentSolver.addAdjacentList(TSPData);}
+        else{System.err.println("TSP empty");}
+       
        currentSolver.setListener(this);
         this.SolverSettings=currentSolver.getSettingsPane();
         this.setSolver();
         this.getChildren().add(SolverSettings);
-        if(TSPData!=null)
-        {currentSolver.addAdjacentList(TSPData);}
-        else{System.err.println("TSP empty");}
+
         dataOutput=currentSolver.getPlotList();
         dataOutput.evalBounds(toPlot);
         

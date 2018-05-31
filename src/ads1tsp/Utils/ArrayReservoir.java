@@ -49,22 +49,62 @@ public class ArrayReservoir implements Reservoir{
 
     @Override
     public Node getByIndex(int i) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+return this.nodes[i];
     }
 
     @Override
     public Node extractRandom() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int l=this.getLength();
+        int nth=(int)(Math.random()*l);
+        for (int i =0; i<nodes.length;i++)
+        {if(nodes[i]!=null){if(nth==0){Node n=nodes[i];nodes[i]=null; return n;}else{nth--;}}}
+        return null;
     }
 
     @Override
     public int getLength() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int length=0;
+        for (int i =0; i<this.nodes.length; i++)
+        {
+            if (nodes[i]!=null)
+                length++;
+        }
+        return length;
     }
 
     @Override
     public Node extractNode(Node A) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (int i=0;i<nodes.length; i++)
+        {
+            if(nodes[i]==A)
+            {nodes[i]=null;}
+        }
+        return A;
+        
+    }
+
+    @Override
+    public Node extractNext() {
+        Node t;
+        for (int i=0; i<nodes.length; i++)
+        {
+            if(nodes[i]!=null)
+            {t=nodes[i]; nodes[i]=null; return t;}
+        }
+        return null;
+    }
+    public String toString()
+    {
+        String x="";
+        for (Node n:this.nodes)
+            x+=n.toString();
+        
+        return x;
+    }
+
+    @Override
+    public Node[] getData() {
+       return this.nodes;
     }
     
 }

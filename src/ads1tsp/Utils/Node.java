@@ -54,6 +54,8 @@ public class Node  implements Updateable{
     {
         if(this==other)
             return 0;
+        if(other==null)
+            return Double.POSITIVE_INFINITY;
         double deltaX, deltaY;
         deltaX=this.x - other.x;
         deltaY = this.y - other.y;
@@ -70,7 +72,7 @@ public class Node  implements Updateable{
     @Override
     public String toString()
     {
-        return ("i: " + index + " name: "  + Name + " X: " +x + " Y:" + y);
+        return ("i: " + index + " name: "  + Name + " X: " +x + " Y:" + y + "\t");
     }
 
     @Override

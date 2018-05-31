@@ -225,6 +225,14 @@ public class PlotList implements Updateable {
         generateFromAdjacentList(List, null);
         sendMessage();
     }
+    /*
+    public void generateFromAdjacentList(PlainAdjacentList input, Link[] LiLi)
+    {
+        l=input;
+        Node [] tlist=input.getNodeList();
+        towns.ensureCapacity(tlist.length);
+    }*/
+    
     public void generateFromAdjacentList(PlainAdjacentList input, ArrayList<Link> links)
     {
         
@@ -232,33 +240,24 @@ public class PlotList implements Updateable {
         Node [] tList = input.getNodeList();
         
         towns.ensureCapacity(tList.length);
-        if(links!=null)
-                 for (Link l:links)
-         {
-             Town start=towns.get(l.getStartNode().getIndex());
-             Town end=towns.get(l.getEndNode().getIndex());
-             roads.add(new Road(start,end));
-         }
-        for (int i =0;i<tList.length;++i)
+                for (int i =0;i<tList.length;++i)
         {
             Town t=new Town(tList[i], Color.RED);
             t.listener=l;
             towns.add(t);
         }
-        
-//        if(links==null)
-//            return;
-        
-//        for (Link l : links)
-//        {
-//            roads.add(new Road(l.getStartNode(), l.getEndNode()));
-//        }
+                System.out.println("\tTowns length " + towns.size());
+        if(links!=null)
+                 for (Link l:links)
+         {
+             System.out.print(l.getStartNode() + " " + l.getEndNode());
+             //System.err.println("s: " + l.getStartNode().getIndex() + " e: " + l.getEndNode().getIndex());
+             Town start=towns.get(l.getStartNode().getIndex());
+             Town end=towns.get(l.getEndNode().getIndex());
+             roads.add(new Road(start,end));
+         }
 
-
-        
-
-        
-
+    
     }
     
     

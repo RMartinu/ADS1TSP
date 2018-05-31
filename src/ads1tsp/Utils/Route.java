@@ -5,6 +5,7 @@
  */
 package ads1tsp.Utils;
 
+
 import java.util.ArrayList;
 
 /**
@@ -14,16 +15,65 @@ import java.util.ArrayList;
 public class Route {
     
     ArrayList<Node> route;
+    double length=0;
     public Route()
-    {}
+    {
+        route= new ArrayList<>();
+    }
     public Route (int n)
     {
+        route=new ArrayList<>();
         route.ensureCapacity(n);
     }
+    public Node getStartNode()
+    {
+        return route.get(0);
+    }
+    
     
     public void addNode(Node In)
     {
         route.add(In);
+    }
+    
+    public double getRouteLength()
+    {
+        Node A=null,B;
+        for (Node n: route)
+        {
+            if(A==null)
+            { A=n;continue;}
+            B=n;
+            length+=A.calculateDistance(B);
+            A=B;
+            
+        }
+        return length;
+    }
+    
+    public Link[] getLinks()
+    {
+        int length=this.route.size()-1;
+        
+        Link [] ListOfLinks =new Link[length];
+        for (int i =0; i<length; i++)
+        {
+            ListOfLinks[i]=new Link(route.get(i),route.get(i+1));
+        }
+        
+        return ListOfLinks;
+        
+    }
+    
+    public ArrayList<Link> getLinkArrayList()
+    {
+        ArrayList<Link> LiOLinks=new ArrayList<>();
+        int length=route.size()-1;
+        for (int i=0; i<length; i++)
+        {
+            LiOLinks.add(new Link(route.get(i),route.get(i+1)));
+        }
+        return LiOLinks;
     }
     
    

@@ -8,11 +8,16 @@ package ads1tsp.Solvers;
 import ads1tsp.GUI.PlotList;
 import ads1tsp.Updateable;
 import ads1tsp.Utils.AdjacentList;
+import ads1tsp.Utils.ArrayDistanceFinder;
+import ads1tsp.Utils.ArrayReservoir;
 import ads1tsp.Utils.Link;
+import ads1tsp.Utils.Node;
 import ads1tsp.Utils.PlainAdjacentList;
+import ads1tsp.Utils.Route;
 import ads1tsp.Utils.Statistics;
 import ads1tsp.Utils.TimeKeeper;
 import java.util.ArrayList;
+import javafx.scene.paint.Color;
 
 /**
  *
@@ -24,19 +29,69 @@ public class NearestNeighbor implements Solver {
     TimeKeeper keeper;
     Statistics stats;
     ArrayList<Link> linkList;
+    Updateable UD;
 
+    boolean isBlank=true;
+    boolean isFinished=false;
+    boolean isPrepared=false;
+    ArrayDistanceFinder ADF;
+    ArrayReservoir AR;
+    Route R;
+    Node currentNode=null;
+    Node nextNode;
+    Node previous;
+    
+    ArrayList<Link> ll;
+    
     public NearestNeighbor() {
         stats=new Statistics("BaC");
         keeper=new TimeKeeper();
+        
+
     }
 
     
     @Override
     public void step() {
+        if(this.isFinished)
+            return;
+        output=new PlotList(this);
+        //this.addAdjacentList(workData);
+        
+   
+        stats.increment();
         keeper.start();
-        output.generateFromAdjacentList((PlainAdjacentList)workData);
-        this.stats.setMessage("Iteration: "+stats.getIterations()+""+"\nLast It: " + keeper.getIterationZime()/1000000 + "ms "+(keeper.getIterationZime()%1000000)/1000+"us " + "\nTotal: " + keeper.getTotalTime()/1000000+"ms "+ (keeper.getTotalTime()%1000000)/1000+"us");
+        
+        //start the route
+        if(currentNode==null)
+        {
+            
+            currentNode=this.AR.extractNext();
+            previous=currentNode;
+            R.addNode(currentNode);
+        }
+        nextNode=this.ADF.extractClosestNeighbor(currentNode);
+        //nextNode=AR.extractNext();
+        if(nextNode==null)
+        {
+            nextNode=R.getStartNode();
+            this.isFinished=true;
+        }
+        previous=currentNode;
+        R.addNode(nextNode);
+        currentNode=nextNode;
+        
+        
+        
+        this.stats.setMessage("Iteration: "+stats.getIterations()+""+"\nLast It: " + keeper.getIterationTime()/1000000 + "ms "+(keeper.getIterationTime()%1000000)/1000+"us " + "\nTotal: " + keeper.getTotalTime()/1000000+"ms "+ (keeper.getTotalTime()%1000000)/1000+"us" + "\nLength: " + R.getRouteLength());
         keeper.stop();
+        this.output=new PlotList(this);
+        //output.generateFromAdjacentList((PlainAdjacentList)workData,R.getLinkArrayList());
+        System.out.println("Adding l: " + previous + " and " + currentNode);
+        ll.add(new Link(previous, currentNode));
+        output.generateFromAdjacentList((PlainAdjacentList)workData, ll);
+        output.addRoad(previous, currentNode, Color.RED);
+        
     }
 
     @Override
@@ -44,17 +99,32 @@ public class NearestNeighbor implements Solver {
         return this.output;
     }
 
+    private void prepare()
+    {
+        stats=new Statistics();
+        keeper.reset();
+             nextNode=null;
+        currentNode=null;
+        previous=null;
+        AR=new ArrayReservoir(workData.getNodeList());
+        ADF=new ArrayDistanceFinder(AR);
+                this.output=new PlotList(this);
+                R=new Route(workData.getLength());
+        output.generateFromAdjacentList((PlainAdjacentList)workData);
+        ll=new ArrayList<>();
+        isPrepared=true;
+    }
     @Override
     public void addAdjacentList(AdjacentList input) {
+        this.isPrepared=false;
         this.workData=input;
-        this.output=new PlotList(this);
-        output.generateFromAdjacentList((PlainAdjacentList)workData);
+        workData.setListener(this);
+        
+            prepare();
+
     }
 
-    @Override
-    public void addControlPanel() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
 
     @Override
     public Statistics getStatistics() {
@@ -63,7 +133,19 @@ public class NearestNeighbor implements Solver {
 
     @Override
     public void Notify() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.isPrepared=false;
+        this.isFinished=false;
+        this.isBlank=true;
+        prepare();
+        output=new PlotList(this);
+        output.generateFromAdjacentList((PlainAdjacentList)workData);
+        sendMessage();
+    }
+    
+    private void sendMessage()
+    {
+        if(this.UD!=null)
+            UD.Notify();
     }
 
     @Override
@@ -78,7 +160,7 @@ public class NearestNeighbor implements Solver {
 
     @Override
     public void setListener(Updateable that) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.UD=that;
     }
     
 }

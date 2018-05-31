@@ -54,11 +54,11 @@ public class DummySolver implements Solver {
         Node origin=nl[(int)(Math.random()*nl.length)];
         Color current=rainbow[(int)(Math.random()*rainbow.length)];
         for (Node destiny : nl) {
-            outDAta.addRoad(origin, destiny,current,0.15);
+            outDAta.addRoad(origin, destiny,current,0.25);
         }
         timek.stop();
         myStat.increment();
-        this.myStat.setMessage("Iteration: "+myStat.getIterations()+""+"\nLast It: " + timek.getIterationZime()/1000000 + "ms "+(timek.getIterationZime()%1000000)/1000+"us " + "\nTotal: " + timek.getTotalTime()/1000000+"ms "+ (timek.getTotalTime()%1000000)/1000+"us");
+        this.myStat.setMessage("Iteration: "+myStat.getIterations()+""+"\nLast It: " + timek.getIterationTime()/1000000 + "ms "+(timek.getIterationTime()%1000000)/1000+"us " + "\nTotal: " + timek.getTotalTime()/1000000+"ms "+ (timek.getTotalTime()%1000000)/1000+"us");
         
     }
 
@@ -77,21 +77,23 @@ public class DummySolver implements Solver {
         
     }
 
-    @Override
-    public void addControlPanel() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
 
     @Override
     public Statistics getStatistics() {
-        Statistics s = new Statistics("Gaga");
+        
         
         return this.myStat;
     }
 
+    
+    /**
+     * Important: every Solver must pass those notifications through
+     * Potentialy, and likely, treat this as a reset
+     */
     @Override
     public void Notify() {
-        System.out.println("DummyPlug got a call");
+        System.out.println("DummyPlug got a call, forward to " + this.listener);
         outDAta=new PlotList(this);
         outDAta.generateFromAdjacentList((PlainAdjacentList)workData);
         sendNotification();
