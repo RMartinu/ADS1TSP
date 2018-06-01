@@ -16,11 +16,11 @@ public class ArrayDistanceFinder implements distanceFinder{
     {
         workset=in;
         n=in.getData();
-        System.out.println("workset + "+workset.toString());
-        for (Node n1:n)
-        {
-            System.out.println(n1);
-        }
+//        System.out.println("workset + "+workset.toString());
+//        for (Node n1:n)
+//        {
+//            System.out.println(n1);
+//        }
     }
    
 

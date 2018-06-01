@@ -187,7 +187,9 @@ public class PlainAdjacentList implements AdjacentList,Updateable{
         {
             if(NodeList[i]!=null)
             {
-                tempList[j]=NodeList[i];j++;
+                tempList[j]=NodeList[i];
+                tempList[j].setIndex(j);
+                j++;
             }
         }
         NodeList=tempList;

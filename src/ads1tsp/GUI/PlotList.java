@@ -174,8 +174,8 @@ public class PlotList implements Updateable {
     
     public void evalBounds (Pane forPane)
     {
-        System.err.println("Panel Size"+forPane.getWidth() + " " + forPane.getHeight());
-        double pWith=forPane.getWidth()-30, pHeight=forPane.getHeight()-30;
+        //System.err.println("Panel Size"+forPane.getWidth() + " " + forPane.getHeight());
+        double pWith=forPane.getWidth()-30, pHeight=forPane.getHeight()-50;
         if(pWith<=50)
             pWith=200;
         if(pHeight<=50)
@@ -194,12 +194,12 @@ public class PlotList implements Updateable {
             if(t.myNode.getY()<this.minY)
                 minY=t.myNode.getY();
         }
-        System.err.println("MaxX: " + maxX + " minX: " + minX + " maxY: " + maxY + " minY: " + minY);
+        //System.err.println("MaxX: " + maxX + " minX: " + minX + " maxY: " + maxY + " minY: " + minY);
         
         double scaX, scaY;
         scaX=pWith/(Math.abs(maxX-minX));
         scaY=pHeight/Math.abs(maxY-minY);
-        System.err.println("scaX:" + scaX + " scaY: " + scaY);
+        //System.err.println("scaX:" + scaX + " scaY: " + scaY);
         Town.scaleX=scaX;
         Town.scaleY=scaY;
 //        Town.scaleX=4;
@@ -246,11 +246,11 @@ public class PlotList implements Updateable {
             t.listener=l;
             towns.add(t);
         }
-                System.out.println("\tTowns length " + towns.size());
+                //System.out.println("\tTowns length " + towns.size());
         if(links!=null)
                  for (Link l:links)
          {
-             System.out.print(l.getStartNode() + " " + l.getEndNode());
+             //System.out.print(l.getStartNode() + " " + l.getEndNode());
              //System.err.println("s: " + l.getStartNode().getIndex() + " e: " + l.getEndNode().getIndex());
              Town start=towns.get(l.getStartNode().getIndex());
              Town end=towns.get(l.getEndNode().getIndex());

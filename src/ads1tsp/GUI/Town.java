@@ -9,6 +9,7 @@ import ads1tsp.Utils.*;
 import java.util.ArrayList;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -69,15 +70,18 @@ public class Town implements Updateable{
             circle.setCenterX(me.getX());
             circle.setCenterY(me.getY());
             me.consume();
+            
             this.Update();
         });
+       // circle.setOnMouseDragReleased();
+        circle.setOnMouseReleased((MouseEvent me)->{System.out.println("I'm Here!"+me.getButton());if(me.getButton()==MouseButton.SECONDARY){this.myNode.setIndex(-1);};SendMessage();});
         
-        circle.addEventFilter(MouseEvent.MOUSE_CLICKED,(MouseEvent me)->{System.out.println("eat klick"); me.consume();if(me.isControlDown()){System.out.println("Target Splashed");this.myNode.setIndex(-1);SendMessage();}});
+        circle.addEventFilter(MouseEvent.MOUSE_CLICKED,(MouseEvent me)->{ /*me.consume()*/;System.out.println("town touched");if(me.isControlDown()){System.out.println("Target Splashed");this.myNode.setIndex(-1);}this.SendMessage();});
         //circle.setOnMouseClicked((MouseEvent me)->{System.out.println("eat klick"); me.consume();});
     }
     
  
-    private void SendMessage(){if(listener!=null){listener.Notify();System.out.println("Notified: " + listener.toString());}else System.err.println("AAA");};
+    private void SendMessage(){if(listener!=null){listener.Notify();}};
 
     
     

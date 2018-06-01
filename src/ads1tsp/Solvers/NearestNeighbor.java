@@ -24,74 +24,67 @@ import javafx.scene.paint.Color;
  * @author Robert Martinu
  */
 public class NearestNeighbor implements Solver {
+
     AdjacentList workData;
     PlotList output;
     TimeKeeper keeper;
     Statistics stats;
-    ArrayList<Link> linkList;
+    //ArrayList<Link> linkList;
     Updateable UD;
 
-    boolean isBlank=true;
-    boolean isFinished=false;
-    boolean isPrepared=false;
+    boolean isBlank = true;
+    boolean isFinished = false;
+    boolean isPrepared = false;
     ArrayDistanceFinder ADF;
     ArrayReservoir AR;
     Route R;
-    Node currentNode=null;
+    Node currentNode = null;
     Node nextNode;
     Node previous;
-    
-    ArrayList<Link> ll;
-    
+
     public NearestNeighbor() {
-        stats=new Statistics("BaC");
-        keeper=new TimeKeeper();
-        
+        stats = new Statistics("BaC");
+        keeper = new TimeKeeper();
 
     }
 
-    
     @Override
     public void step() {
-        if(this.isFinished)
+        if (this.isFinished) {
             return;
-        output=new PlotList(this);
+        }
+        //output = new PlotList(this);
         //this.addAdjacentList(workData);
-        
-   
+
         stats.increment();
         keeper.start();
-        
+
         //start the route
-        if(currentNode==null)
-        {
-            
-            currentNode=this.AR.extractNext();
-            previous=currentNode;
+        if (currentNode == null) {
+
+            currentNode = this.AR.extractNext();
+            previous = currentNode;
             R.addNode(currentNode);
         }
-        nextNode=this.ADF.extractClosestNeighbor(currentNode);
+        nextNode = this.ADF.extractClosestNeighbor(currentNode);
         //nextNode=AR.extractNext();
-        if(nextNode==null)
-        {
-            nextNode=R.getStartNode();
-            this.isFinished=true;
+        if (nextNode == null) {
+            nextNode = R.getStartNode();
+            this.isFinished = true;
         }
-        previous=currentNode;
+        previous = currentNode;
         R.addNode(nextNode);
-        currentNode=nextNode;
-        
-        
-        
-        this.stats.setMessage("Iteration: "+stats.getIterations()+""+"\nLast It: " + keeper.getIterationTime()/1000000 + "ms "+(keeper.getIterationTime()%1000000)/1000+"us " + "\nTotal: " + keeper.getTotalTime()/1000000+"ms "+ (keeper.getTotalTime()%1000000)/1000+"us" + "\nLength: " + R.getRouteLength());
+        currentNode = nextNode;
+
+        this.stats.setMessage("Iteration: " + stats.getIterations() + "" + "\nLast It: " + keeper.getIterationTime() / 1000000 + "ms " + (keeper.getIterationTime() % 1000000) / 1000 + "us " + "\nTotal: " + keeper.getTotalTime() / 1000000 + "ms " + (keeper.getTotalTime() % 1000000) / 1000 + "us" + "\nLength: " + R.getRouteLength());
         keeper.stop();
-        this.output=new PlotList(this);
+        this.output = new PlotList(this);
         //output.generateFromAdjacentList((PlainAdjacentList)workData,R.getLinkArrayList());
-        System.out.println("Adding l: " + previous + " and " + currentNode);
-        ll.add(new Link(previous, currentNode));
-        output.generateFromAdjacentList((PlainAdjacentList)workData, ll);
+        // System.out.println("Adding l: " + previous + " and " + currentNode);
+
+        output.generateFromAdjacentList((PlainAdjacentList) workData, R.getLinkArrayList());
         output.addRoad(previous, currentNode, Color.RED);
-        
+
     }
 
     @Override
@@ -99,32 +92,31 @@ public class NearestNeighbor implements Solver {
         return this.output;
     }
 
-    private void prepare()
-    {
-        stats=new Statistics();
+    private void prepare() {
+        stats = new Statistics();
         keeper.reset();
-             nextNode=null;
-        currentNode=null;
-        previous=null;
-        AR=new ArrayReservoir(workData.getNodeList());
-        ADF=new ArrayDistanceFinder(AR);
-                this.output=new PlotList(this);
-                R=new Route(workData.getLength());
-        output.generateFromAdjacentList((PlainAdjacentList)workData);
-        ll=new ArrayList<>();
-        isPrepared=true;
+        nextNode = null;
+        currentNode = null;
+        previous = null;
+        AR = new ArrayReservoir(workData.getNodeList());
+        ADF = new ArrayDistanceFinder(AR);
+        this.output = new PlotList(this);
+        R = new Route(workData.getLength());
+        output.generateFromAdjacentList((PlainAdjacentList) workData);
+        
+
+        isPrepared = true;
     }
+
     @Override
     public void addAdjacentList(AdjacentList input) {
-        this.isPrepared=false;
-        this.workData=input;
+        this.isPrepared = false;
+        this.workData = input;
         workData.setListener(this);
-        
-            prepare();
+
+        prepare();
 
     }
-
-
 
     @Override
     public Statistics getStatistics() {
@@ -133,24 +125,23 @@ public class NearestNeighbor implements Solver {
 
     @Override
     public void Notify() {
-        this.isPrepared=false;
-        this.isFinished=false;
-        this.isBlank=true;
+        this.isPrepared = false;
+        this.isFinished = false;
+        this.isBlank = true;
         prepare();
-        output=new PlotList(this);
-        output.generateFromAdjacentList((PlainAdjacentList)workData);
+
         sendMessage();
     }
-    
-    private void sendMessage()
-    {
-        if(this.UD!=null)
+
+    private void sendMessage() {
+        if (this.UD != null) {
             UD.Notify();
+        }
     }
 
     @Override
     public NearestNeighborSettingsPane getSettingsPane() {
-         return new NearestNeighborSettingsPane(this);
+        return new NearestNeighborSettingsPane(this);
     }
 
     @Override
@@ -160,7 +151,7 @@ public class NearestNeighbor implements Solver {
 
     @Override
     public void setListener(Updateable that) {
-        this.UD=that;
+        this.UD = that;
     }
-    
+
 }

@@ -72,7 +72,7 @@ if(currentData!=null)currentData.evalBounds(this);
     }
     public void setCurrentData(PlotList input)
     {
-        System.out.println("Got new Data");
+       // System.out.println("Got new Data");
         //input.creator.setListener(this);
         
         currentData=input;
@@ -125,7 +125,7 @@ if(currentData!=null)currentData.evalBounds(this);
 
     @Override
     public void Notify() {
-        System.out.println("Plotter feels notified");
+        //ut.println("Plotter feels notified");
         setCurrentData(currentData);
     }
 

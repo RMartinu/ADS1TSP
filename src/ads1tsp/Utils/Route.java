@@ -29,6 +29,10 @@ public class Route {
     {
         return route.get(0);
     }
+    public Node getEndNode()
+    {
+        return route.get(route.size()-1);
+    }
     
     
     public void addNode(Node In)
@@ -36,20 +40,26 @@ public class Route {
         route.add(In);
     }
     
+    
     public double getRouteLength()
     {
+        if(length!=0)
+            return length;
         Node A=null,B;
         for (Node n: route)
         {
             if(A==null)
             { A=n;continue;}
             B=n;
-            length+=A.calculateDistance(B);
+            length+=Math.sqrt(A.calculateDistance(B));
             A=B;
             
         }
+        //don't forget to close the journey
+        length+=Math.sqrt(this.getStartNode().calculateDistance(this.getEndNode()));
         return length;
     }
+    
     
     public Link[] getLinks()
     {

@@ -51,7 +51,7 @@ HLayout.setBottom(report);
        
         
         ;
-        this.widthProperty().addListener((obs,a,b)->{System.err.println("Plotter res");plotPane.repaint();});
+        this.widthProperty().addListener((obs,a,b)->{plotPane.repaint();});
         
         this.getChildren().add(HLayout);
     }
