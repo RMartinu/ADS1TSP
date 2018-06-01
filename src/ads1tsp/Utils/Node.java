@@ -10,8 +10,17 @@ import ads1tsp.Updateable;
 /**
  *
  * @author Robert Martinu
+ * @author Julia Pichler
  */
-public class Node  implements Updateable{
+
+
+/**
+ * contains x and y coordinates of town in world coordinates
+ * int index is used to indicate the position in the containing array and is also used to mark for deletion (negative value)
+ * Updateable listener holds a reference to object that will be notified when updates occur
+ * 
+ */
+public class Node implements Updateable{
     String Name;
     double x,y;
     int index;
@@ -50,6 +59,11 @@ public class Node  implements Updateable{
     {return y;}
     public void setIndex(int i )
     {index=i;}
+    /**
+     * caluclates distance to other node
+     * @param other the node to calculate distance from
+     * @return returns square of the distance (avoid costly square root operation)
+     */
     public double calculateDistance(Node other)
     {
         if(this==other)
@@ -74,7 +88,9 @@ public class Node  implements Updateable{
     {
         return ("i: " + index + " name: "  + Name + " X: " +x + " Y:" + y + "\t");
     }
-
+/**
+ * notify the previously attached listening object
+ */
     @Override
     public void Notify() {
         if(listener!=null)

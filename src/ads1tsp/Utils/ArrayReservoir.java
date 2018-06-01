@@ -10,32 +10,44 @@ import java.util.LinkedList;
 /**
  *
  * @author Robert Martinu
+ * @author Julia Pichler
  */
-public class ArrayReservoir implements Reservoir{
-    Node [] nodes;
-    public ArrayReservoir (Node[] inList)
+public class ArrayReservoir implements Reservoir
+{
+
+    Node[] nodes;
+
+    public ArrayReservoir(Node[] inList)
     {
-        nodes=inList.clone();
+        nodes = inList.clone();
     }
 
     @Override
-    public boolean add(Node a) {
+    public boolean add(Node a)
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean add(Node[] a) {
+    public boolean add(Node[] a)
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * peeks next node
+     * @return returns next node
+     */
+   
     @Override
-    public Node getNext() {
-        for (int i =0; i<nodes.length;i++)
+    public Node getNext()
+    {
+        for (int i = 0; i < nodes.length; i++)
         {
-            if(nodes[i]!=null)
+            if (nodes[i] != null)
             {
-                Node t=nodes[i];
-                nodes[i]=null;
+                Node t = nodes[i];
+                //nodes[i] = null;
                 return t;
             }
         }
@@ -43,68 +55,115 @@ public class ArrayReservoir implements Reservoir{
     }
 
     @Override
-    public Node getByName(String s) {
+    public Node getByName(String s)
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Node getByIndex(int i) {
-return this.nodes[i];
+    public Node getByIndex(int i)
+    {
+        return this.nodes[i];
     }
 
+    /**
+     * 
+     * @return returns randomly selected element
+     */
+    
     @Override
-    public Node extractRandom() {
-        int l=this.getLength();
-        int nth=(int)(Math.random()*l);
-        for (int i =0; i<nodes.length;i++)
-        {if(nodes[i]!=null){if(nth==0){Node n=nodes[i];nodes[i]=null; return n;}else{nth--;}}}
+    public Node extractRandom()
+    {
+        int l = this.getLength();
+        int nth = (int) (Math.random() * l);
+        for (int i = 0; i < nodes.length; i++)
+        {
+            if (nodes[i] != null)
+            {
+                if (nth == 0)
+                {
+                    Node n = nodes[i];
+                    nodes[i] = null;
+                    return n;
+                } else
+                {
+                    nth--;
+                }
+            }
+        }
         return null;
     }
 
     @Override
-    public int getLength() {
-        int length=0;
-        for (int i =0; i<this.nodes.length; i++)
+    public int getLength()
+    {
+        int length = 0;
+        for (int i = 0; i < this.nodes.length; i++)
         {
-            if (nodes[i]!=null)
+            if (nodes[i] != null)
+            {
                 length++;
+            }
         }
         return length;
     }
 
+    /**
+     * 
+     * @param A node to search
+     * @return returns node
+     */
+    
     @Override
-    public Node extractNode(Node A) {
-        for (int i=0;i<nodes.length; i++)
+    public Node extractNode(Node A)
+    {
+        for (int i = 0; i < nodes.length; i++)
         {
-            if(nodes[i]==A)
-            {nodes[i]=null;}
+            if (nodes[i] == A)
+            {
+                nodes[i] = null;
+            }
         }
         return A;
-        
+
     }
 
+    /**
+     * returns and deletes node from reservoir
+     * @return reutrns next node
+     */
+    
     @Override
-    public Node extractNext() {
+    public Node extractNext()
+    {
         Node t;
-        for (int i=0; i<nodes.length; i++)
+        for (int i = 0; i < nodes.length; i++)
         {
-            if(nodes[i]!=null)
-            {t=nodes[i]; nodes[i]=null; return t;}
+            if (nodes[i] != null)
+            {
+                t = nodes[i];
+                nodes[i] = null;
+                return t;
+            }
         }
         return null;
     }
+
     public String toString()
     {
-        String x="";
-        for (Node n:this.nodes)
-            x+=n.toString();
-        
+        String x = "";
+        for (Node n : this.nodes)
+        {
+            x += n.toString();
+        }
+
         return x;
     }
 
     @Override
-    public Node[] getData() {
-       return this.nodes;
+    public Node[] getData()
+    {
+        return this.nodes;
     }
-    
+
 }

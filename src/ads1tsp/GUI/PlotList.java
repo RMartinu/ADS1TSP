@@ -19,212 +19,266 @@ import javafx.scene.paint.Color;
 /**
  *
  * @author Robert Martinu
+ * @author Julia Pichler
  */
-public class PlotList implements Updateable {
-    
-    double maxX=Double.MIN_VALUE, minX=Double.MAX_VALUE, maxY=Double.MIN_VALUE, minY=Double.MAX_VALUE;
+public class PlotList implements Updateable
+{
+
+    double maxX = Double.MIN_VALUE, minX = Double.MAX_VALUE, maxY = Double.MIN_VALUE, minY = Double.MAX_VALUE;
     AdjacentList l;
     ArrayList<Road> roads;
     ArrayList<Town> towns;
     Updateable listener;
     Solver creator;
 
-    
     private void sendMessage()
     {
-        if(listener!=null)
+        if (listener != null)
+        {
             listener.Notify();
+        }
     }
+
     public PlotList(Solver that)
     {
-        roads=new ArrayList<>();
-        towns=new ArrayList<>();
-        creator=that;
-                
-    }
-    public PlotList (boolean test)
-    {if(test==false)return;
-    roads=new ArrayList<>();
-        towns=new ArrayList<>();
-    Town A,B,C,D,E;
-   // Town.scaleX=1;
-   // Town.scaleY=1;
-    A=new Town(new Node(10, 10));
-    B=new Town (new Node (20,200));
-    C=new Town (new Node(100,100));
-    D=new Town (new Node (150,175));
-    l=new AdjacentList();
-    
-    towns.add(A);
-    towns.add(B);towns.add(C);towns.add(D);
-    
-    for (Town t : towns)
-    {
-        
-        //System.out.println("x " + t.myX + " to " + t.myY);
-    }
-    
-    Road r1=new Road(A,B);
-    Road lr=new Road(C,D,Color.CHARTREUSE);
-    Road inter = new Road (B,C, Color.INDIGO,0.74);
-    Road IIC = new Road(A,C,Color.AQUAMARINE,0.66);
-    roads.add(r1);
-    roads.add(lr);
-    roads.add(inter);
-    roads.add(IIC);
+        roads = new ArrayList<>();
+        towns = new ArrayList<>();
+        creator = that;
 
-    
-    for (Road r : roads)
+    }
+
+    public PlotList(boolean test)
     {
-        if (r==null)
-            continue;
-        //System.out.println("from " + r.startX +", " + r.startY + " to " + r.line.endXProperty() + ", " + r.line.endYProperty());
+        if (test == false)
+        {
+            return;
+        }
+        roads = new ArrayList<>();
+        towns = new ArrayList<>();
+        Town A, B, C, D, E;
+        // Town.scaleX=1;
+        // Town.scaleY=1;
+        A = new Town(new Node(10, 10));
+        B = new Town(new Node(20, 200));
+        C = new Town(new Node(100, 100));
+        D = new Town(new Node(150, 175));
+        l = new AdjacentList();
+
+        towns.add(A);
+        towns.add(B);
+        towns.add(C);
+        towns.add(D);
+
+        for (Town t : towns)
+        {
+
+            //System.out.println("x " + t.myX + " to " + t.myY);
+        }
+
+        Road r1 = new Road(A, B);
+        Road lr = new Road(C, D, Color.CHARTREUSE);
+        Road inter = new Road(B, C, Color.INDIGO, 0.74);
+        Road IIC = new Road(A, C, Color.AQUAMARINE, 0.66);
+        roads.add(r1);
+        roads.add(lr);
+        roads.add(inter);
+        roads.add(IIC);
+
+        for (Road r : roads)
+        {
+            if (r == null)
+            {
+                continue;
+            }
+            //System.out.println("from " + r.startX +", " + r.startY + " to " + r.line.endXProperty() + ", " + r.line.endYProperty());
+        }
+
     }
-    
-    }
-    
+
     public void addNode(Node input)
     {
         //comes most likely from the input pane
-                l.addNode(input);
+        l.addNode(input);
     }
-    
+
     public void addNode(double x, double y)
     {
-        Node n=new Node(x/Town.scaleX, y/Town.scaleY);
+        Node n = new Node(x / Town.scaleX, y / Town.scaleY);
         this.l.addNode(n);
-        
+
     }
+
     private Town findTownToNode(Node in)
     {
-        for (Town t: towns)
+        for (Town t : towns)
         {
-            if(t.myNode.equals(in))
+            if (t.myNode.equals(in))
+            {
                 return t;
+            }
         }
         return null;
     }
-    public void AddTown(Town in){
+
+    public void AddTown(Town in)
+    {
         //comes fom Pane
 
-        
     }
-    
+
     public void removeTown(Town toKill)
     {
         this.l.removeNode(toKill.myNode);
     }
-    public void addRoad(Town A, Town B, Color c, double density){
-                if(this.towns.contains(A) && this.towns.contains(B))
+
+    public void addRoad(Town A, Town B, Color c, double density)
+    {
+        if (this.towns.contains(A) && this.towns.contains(B))
         {
-            this.roads.add(new Road(A, B,c,density));
+            this.roads.add(new Road(A, B, c, density));
         }
     }
+
     public void addRoad(Town A, Town B, Color c)
     {
-        if(this.towns.contains(A) && this.towns.contains(B))
+        if (this.towns.contains(A) && this.towns.contains(B))
         {
-            this.roads.add(new Road(A, B,c));
+            this.roads.add(new Road(A, B, c));
         }
     }
+
     public void addRoad(Town A, Town B)
     {
         addRoad(A, B, Color.CYAN);
     }
-    public void addRoad(Node A, Node B, Color c, double density){
-        Town start=findTownToNode(A);
-        Town end=findTownToNode(B);
+
+    public void addRoad(Node A, Node B, Color c, double density)
+    {
+        Town start = findTownToNode(A);
+        Town end = findTownToNode(B);
         addRoad(start, end, c, density);
     }
-    public void addRoad(Node A, Node B, Color c){        Town start=findTownToNode(A);
-        Town end=findTownToNode(B);
-        addRoad(start, end, c);}
+
+    public void addRoad(Node A, Node B, Color c)
+    {
+        Town start = findTownToNode(A);
+        Town end = findTownToNode(B);
+        addRoad(start, end, c);
+    }
+
     public void addRoad(Node A, Node B)
     {
         Town start;
         start = findTownToNode(A);
         Town end;
         end = findTownToNode(B);
-        addRoad(start, end);   
+        addRoad(start, end);
     }
-    
+
     public void removeRoad(Node start, Node end)
     {
-        Town A,B;
-        A=findTownToNode(start);
-        B=findTownToNode(end);
+        Town A, B;
+        A = findTownToNode(start);
+        B = findTownToNode(end);
         removeRoad(A, B);
-                
+
     }
-    
+
     public void removeRoad(Town A, Town B)
     {
         for (Road r : this.roads)
         {
-            if((r.start==A&&r.end==B)||(r.start==B && r.end==A))
-            {this.roads.remove(r);return;}
+            if ((r.start == A && r.end == B) || (r.start == B && r.end == A))
+            {
+                this.roads.remove(r);
+                return;
+            }
         }
     }
-    
+
     public void addRoad(Road in)
     {
         if (this.towns.contains(in.start) && this.towns.contains(in.end))
+        {
             this.roads.add(in);
+        }
     }
+
+    /**
+     * calculate scaling factors for x and y values of towns on screen
+     * @param forPane pane that will display out plot
+     */
     
-    public void evalBounds (Pane forPane)
+    public void evalBounds(Pane forPane)
     {
         //System.err.println("Panel Size"+forPane.getWidth() + " " + forPane.getHeight());
-        double pWith=forPane.getWidth()-30, pHeight=forPane.getHeight()-50;
-        if(pWith<=50)
-            pWith=200;
-        if(pHeight<=50)
-            pHeight=200;
-        
-        
-        for (Town t: towns)
+        double pWith = forPane.getWidth() - 30, pHeight = forPane.getHeight() - 50;
+        if (pWith <= 50)
         {
-            if(t.myNode.getX()>this.maxX)
-                maxX=t.myNode.getX();
-            if(t.myNode.getX()<this.minX)
-                minX=t.myNode.getX();
-            
-            if(t.myNode.getY()>this.maxY)
-                maxY=t.myNode.getY();
-            if(t.myNode.getY()<this.minY)
-                minY=t.myNode.getY();
+            pWith = 200;
+        }
+        if (pHeight <= 50)
+        {
+            pHeight = 200;
+        }
+
+        for (Town t : towns)
+        {
+            if (t.myNode.getX() > this.maxX)
+            {
+                maxX = t.myNode.getX();
+            }
+            if (t.myNode.getX() < this.minX)
+            {
+                minX = t.myNode.getX();
+            }
+
+            if (t.myNode.getY() > this.maxY)
+            {
+                maxY = t.myNode.getY();
+            }
+            if (t.myNode.getY() < this.minY)
+            {
+                minY = t.myNode.getY();
+            }
         }
         //System.err.println("MaxX: " + maxX + " minX: " + minX + " maxY: " + maxY + " minY: " + minY);
-        
+
         double scaX, scaY;
-        scaX=pWith/(Math.abs(maxX-minX));
-        scaY=pHeight/Math.abs(maxY-minY);
+        scaX = pWith / (Math.abs(maxX - minX));
+        scaY = pHeight / Math.abs(maxY - minY);
         //System.err.println("scaX:" + scaX + " scaY: " + scaY);
-        Town.scaleX=scaX;
-        Town.scaleY=scaY;
+        Town.scaleX = scaX;
+        Town.scaleY = scaY;
 //        Town.scaleX=4;
 //        Town.scaleY=6;
         double offsetX, offsetY;
-        double townCenterX=(maxX+minX)/2, townCenterY=(maxY+minY)/2;
+        double townCenterX = (maxX + minX) / 2, townCenterY = (maxY + minY) / 2;
         for (Town t : towns)
+        {
             t.Notify();
-        
+        }
+
     }
-    
-    
+
+    /**
+     * generate towns and roads from adjacent list
+     * @param List 
+     */    
     public void generateFromAdjacentList(AdjacentList List)
     {
-      
+
         generateFromAdjacentList(List, null);
         sendMessage();
     }
-    
+
     public void generateFromAdjacentList(AugmentedAdjacentList List)
     {
-        
+
         generateFromAdjacentList(List, null);
         sendMessage();
     }
+
     /*
     public void generateFromAdjacentList(PlainAdjacentList input, Link[] LiLi)
     {
@@ -232,55 +286,54 @@ public class PlotList implements Updateable {
         Node [] tlist=input.getNodeList();
         towns.ensureCapacity(tlist.length);
     }*/
-    
+
     public void generateFromAdjacentList(AdjacentList input, ArrayList<Link> links)
     {
-        
-        l=input;
-        Node [] tList = input.getNodeList();
-        
+
+        l = input;
+        Node[] tList = input.getNodeList();
+
         towns.ensureCapacity(tList.length);
-                for (int i =0;i<tList.length;++i)
+        for (int i = 0; i < tList.length; ++i)
         {
-            Town t=new Town(tList[i], Color.RED);
-            t.listener=l;
+            Town t = new Town(tList[i], Color.RED);
+            t.listener = l;
             towns.add(t);
         }
-                //System.out.println("\tTowns length " + towns.size());
-        if(links!=null)
-                 for (Link l:links)
-         {
-             //System.out.print(l.getStartNode() + " " + l.getEndNode());
-             //System.err.println("s: " + l.getStartNode().getIndex() + " e: " + l.getEndNode().getIndex());
-             Town start=towns.get(l.getStartNode().getIndex());
-             Town end=towns.get(l.getEndNode().getIndex());
-             roads.add(new Road(start,end));
-         }
+        //System.out.println("\tTowns length " + towns.size());
+        if (links != null)
+        {
+            for (Link l : links)
+            {
+                //System.out.print(l.getStartNode() + " " + l.getEndNode());
+                //System.err.println("s: " + l.getStartNode().getIndex() + " e: " + l.getEndNode().getIndex());
+                Town start = towns.get(l.getStartNode().getIndex());
+                Town end = towns.get(l.getEndNode().getIndex());
+                roads.add(new Road(start, end));
+            }
+        }
 
-    
     }
-    
-    
+
     public void generateFromAdjacentList(AugmentedAdjacentList input, ArrayList<Link> links)
     {
-       // l=input;
-       // generateFromAdjacentList(input.getPlainList(), links);
-        
-        
+        // l=input;
+        // generateFromAdjacentList(input.getPlainList(), links);
+
     }
 
     @Override
-    public void Notify() {
-       System.out.println("Plotlist feels notified");
-     
-         generateFromAdjacentList((AdjacentList)l);
+    public void Notify()
+    {
+        System.out.println("Plotlist feels notified");
+
+        generateFromAdjacentList((AdjacentList) l);
     }
 
     @Override
-    public void setListener(Updateable that) {
+    public void setListener(Updateable that)
+    {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
 
 }

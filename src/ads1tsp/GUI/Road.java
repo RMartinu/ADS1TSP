@@ -13,6 +13,7 @@ import javafx.scene.shape.Line;
 /**
  *
  * @author Robert Martinu
+ * @author Julia Pichler
  */
 public class Road {
     double coords[];
@@ -21,6 +22,13 @@ public class Road {
     Town start, end;
     Line line;
     DoubleProperty startX, startY, endY,endX;
+    
+    /**
+     * creates road between two towns
+     * bind town values to road
+     * @param start start town
+     * @param end end town
+     */
     
     public Road (Town start, Town end)
     {

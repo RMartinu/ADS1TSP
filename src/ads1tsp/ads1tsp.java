@@ -30,6 +30,10 @@ public class ads1tsp extends Application {
         Application.launch(args);
     }
 
+    /**
+     * initializes application window
+     * @param primaryStage 
+     */
     @Override
     public void start(Stage primaryStage) {
 //        PlotterPane p = new PlotterPane();

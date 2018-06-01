@@ -8,6 +8,10 @@ package ads1tsp.Utils;
 /**
  *
  * @author Robert Martinu
+ * @author Julia Pichler
+ *
+ * Holds available nodes, offers various retrieval methods
+ * 
  */
 public class ArrayDistanceFinder implements distanceFinder{
     Reservoir workset;
@@ -33,6 +37,13 @@ public class ArrayDistanceFinder implements distanceFinder{
         
     }
 
+    /**
+     * finds nearest neighbor amongst unused nodes
+     * Uses Array as supporting datastructure. kd-TRee would search faster, but incur penalties due to frequent rebuild.
+     * @param A node to find neighbor of
+     * @return returns nearest neighbor
+     */
+    
     @Override
     public Node extractClosestNeighbor(Node A) {
         Node nearest=null;

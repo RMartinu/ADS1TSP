@@ -8,6 +8,7 @@ package ads1tsp.Utils;
 /**
  *
  * @author Robert Martinu
+ * @author Julia Pichler
  */
 public class Link {
 

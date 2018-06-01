@@ -8,6 +8,12 @@ package ads1tsp.Utils;
 /**
  *
  * @author Robert Martinu
+ * @author Julia Pichler
+ */
+
+/**
+ * turns implementing class into distanceFinder
+ * 
  */
 public interface distanceFinder {
 
