@@ -45,7 +45,7 @@ public class FileIOTest {
     public void testNodeListFromFile() throws Exception {
         System.out.println("NodeListFromFile");
         File in = new File("D:\\TSP1.tsp");
-        PlainAdjacentList pal=FileIO.NodeListFromFile(in);
+        AdjacentList pal=FileIO.NodeListFromFile(in);
         pal.print();
   
         //assertEquals(expResult, result);

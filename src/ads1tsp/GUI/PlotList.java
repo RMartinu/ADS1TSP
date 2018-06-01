@@ -8,7 +8,7 @@ package ads1tsp.GUI;
 import ads1tsp.Solvers.Solver;
 import ads1tsp.Updateable;
 import ads1tsp.Utils.AdjacentList;
-import ads1tsp.Utils.PlainAdjacentList;
+import ads1tsp.Utils.AdjacentList;
 import ads1tsp.Utils.AugmentedAdjacentList;
 import ads1tsp.Utils.Link;
 import ads1tsp.Utils.Node;
@@ -53,7 +53,7 @@ public class PlotList implements Updateable {
     B=new Town (new Node (20,200));
     C=new Town (new Node(100,100));
     D=new Town (new Node (150,175));
-    l=new PlainAdjacentList();
+    l=new AdjacentList();
     
     towns.add(A);
     towns.add(B);towns.add(C);towns.add(D);
@@ -212,7 +212,7 @@ public class PlotList implements Updateable {
     }
     
     
-    public void generateFromAdjacentList(PlainAdjacentList List)
+    public void generateFromAdjacentList(AdjacentList List)
     {
       
         generateFromAdjacentList(List, null);
@@ -233,7 +233,7 @@ public class PlotList implements Updateable {
         towns.ensureCapacity(tlist.length);
     }*/
     
-    public void generateFromAdjacentList(PlainAdjacentList input, ArrayList<Link> links)
+    public void generateFromAdjacentList(AdjacentList input, ArrayList<Link> links)
     {
         
         l=input;
@@ -263,8 +263,8 @@ public class PlotList implements Updateable {
     
     public void generateFromAdjacentList(AugmentedAdjacentList input, ArrayList<Link> links)
     {
-        l=input;
-        generateFromAdjacentList(input.getPlainList(), links);
+       // l=input;
+       // generateFromAdjacentList(input.getPlainList(), links);
         
         
     }
@@ -272,9 +272,8 @@ public class PlotList implements Updateable {
     @Override
     public void Notify() {
        System.out.println("Plotlist feels notified");
-        if ( l instanceof AugmentedAdjacentList)
-        generateFromAdjacentList((AugmentedAdjacentList)l);
-        else generateFromAdjacentList((PlainAdjacentList)l);
+     
+         generateFromAdjacentList((AdjacentList)l);
     }
 
     @Override

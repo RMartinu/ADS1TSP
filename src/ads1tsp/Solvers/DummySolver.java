@@ -9,8 +9,7 @@ import ads1tsp.GUI.PlotList;
 import ads1tsp.Updateable;
 import ads1tsp.Utils.AdjacentList;
 import ads1tsp.Utils.Node;
-import ads1tsp.Utils.PlainAdjacentList;
-import ads1tsp.Utils.Statistics;
+import ads1tsp.Utils.AdjacentList;
 import ads1tsp.Utils.TimeKeeper;
 import java.util.ArrayList;
 import javafx.scene.paint.Color;
@@ -55,6 +54,7 @@ public class DummySolver implements Solver {
         Color current=rainbow[(int)(Math.random()*rainbow.length)];
         for (Node destiny : nl) {
             outDAta.addRoad(origin, destiny,current,0.25);
+            this.workData.setWeight(origin, destiny, (origin.getIndex()+1)*(destiny.getIndex()+1));
         }
         timek.stop();
         myStat.increment();
@@ -72,7 +72,7 @@ public class DummySolver implements Solver {
         workData=input;
         workData.setListener(this);
         outDAta=new PlotList(this);
-        outDAta.generateFromAdjacentList((PlainAdjacentList)workData);
+        outDAta.generateFromAdjacentList((AdjacentList)workData);
         sendNotification();
         
     }
@@ -95,7 +95,7 @@ public class DummySolver implements Solver {
     public void Notify() {
         System.out.println("DummyPlug got a call, forward to " + this.listener);
         outDAta=new PlotList(this);
-        outDAta.generateFromAdjacentList((PlainAdjacentList)workData);
+        outDAta.generateFromAdjacentList((AdjacentList)workData);
         sendNotification();
         
     }

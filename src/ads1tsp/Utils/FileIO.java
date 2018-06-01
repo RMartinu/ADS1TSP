@@ -15,7 +15,7 @@ import java.util.Scanner;
  */
 public class FileIO {
     
-    public static PlainAdjacentList NodeListFromFile(File in) throws FileNotFoundException
+    public static AdjacentList NodeListFromFile(File in) throws FileNotFoundException
     {
     
         int numberOfEntries=0;
@@ -50,7 +50,7 @@ public class FileIO {
         }
         
         
-        return new PlainAdjacentList(tempInput);
+        return new AdjacentList(tempInput);
     }
     
     

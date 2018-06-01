@@ -56,7 +56,7 @@ public class PlainAdjacentListTest {
     @Test
     public void testRebuildAdjacentList() {
         System.out.println("rebuildAdjacentList");
-        PlainAdjacentList instance = new PlainAdjacentList(nodeList);
+        AdjacentList instance = new AdjacentList(nodeList);
         //instance.addNode(new Node (5,6));
         instance.rebuildAdjacentList();
         // TODO review the generated test code and remove the default call to fail.
@@ -70,7 +70,7 @@ public class PlainAdjacentListTest {
     public void testAddNode() {
         System.out.println("addNode");
         Node A = new Node (10,10);
-        PlainAdjacentList instance = new PlainAdjacentList(nodeList);
+        AdjacentList instance = new AdjacentList(nodeList);
         instance.addNode(A);
         System.out.println("Added a Node:");
         instance.print();
@@ -87,7 +87,7 @@ public class PlainAdjacentListTest {
         System.out.println("getDistance");
         Node A = null;
         Node B = null;
-        PlainAdjacentList instance = new PlainAdjacentList();
+        AdjacentList instance = new AdjacentList();
         double expResult = -1;
         double result = instance.getDistance(A, B);
         assertEquals(expResult, result, 0.0);
@@ -101,7 +101,7 @@ public class PlainAdjacentListTest {
     @Test
     public void testNotify() {
         System.out.println("Notify");
-        PlainAdjacentList instance = new PlainAdjacentList();
+        AdjacentList instance = new AdjacentList();
         instance.Notify();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -113,7 +113,7 @@ public class PlainAdjacentListTest {
     @Test
     public void testGetLength() {
         System.out.println("getLength");
-        PlainAdjacentList instance = new PlainAdjacentList();
+        AdjacentList instance = new AdjacentList();
         int expResult = 0;
         int result = instance.getLength();
         assertEquals(expResult, result);
@@ -127,7 +127,7 @@ public class PlainAdjacentListTest {
     @Test
     public void testGetNodeList() {
         System.out.println("getNodeList");
-        PlainAdjacentList instance = new PlainAdjacentList();
+        AdjacentList instance = new AdjacentList();
         Node[] expResult = null;
         Node[] result = instance.getNodeList();
         assertArrayEquals(expResult, result);
@@ -142,7 +142,7 @@ public class PlainAdjacentListTest {
     public void testPrint() {
         System.out.println("print");
 
-        PlainAdjacentList instance = new PlainAdjacentList(nodeList);
+        AdjacentList instance = new AdjacentList(nodeList);
         
         instance.print();
         // TODO review the generated test code and remove the default call to fail.

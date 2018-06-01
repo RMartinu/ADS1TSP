@@ -8,7 +8,6 @@ package ads1tsp.Solvers;
 import ads1tsp.GUI.PlotList;
 import ads1tsp.Updateable;
 import ads1tsp.Utils.AdjacentList;
-import ads1tsp.Utils.Statistics;
 
 /**
  *

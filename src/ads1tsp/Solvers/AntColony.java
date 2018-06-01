@@ -9,7 +9,6 @@ import ads1tsp.GUI.PlotList;
 import ads1tsp.Updateable;
 import ads1tsp.Utils.AdjacentList;
 import ads1tsp.Utils.AugmentedAdjacentList;
-import ads1tsp.Utils.Statistics;
 
 /**
  *

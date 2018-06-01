@@ -11,17 +11,17 @@ import ads1tsp.Updateable;
  *
  * @author Robert Martinu
  */
-public class AugmentedAdjacentList implements AdjacentList, Updateable {
+public class AugmentedAdjacentList implements  Updateable {
     boolean isReady;
     double Costs[][];
-    PlainAdjacentList baseList;
+    AdjacentList baseList;
     public AugmentedAdjacentList()
     {
-        baseList=new PlainAdjacentList();
+        baseList=new AdjacentList();
     }
     
     public AugmentedAdjacentList(Node [] inputList){
-        baseList=new PlainAdjacentList(inputList);
+        baseList=new AdjacentList(inputList);
     }
     
     public void setCost(Node A, Node B, double cost)
@@ -42,7 +42,7 @@ public class AugmentedAdjacentList implements AdjacentList, Updateable {
         //return 0;
     }
     
-    public PlainAdjacentList getPlainList()
+    public AdjacentList getPlainList()
     {
         return baseList;
     }
@@ -53,12 +53,12 @@ public class AugmentedAdjacentList implements AdjacentList, Updateable {
         this.baseList.Notify();
     }
 
-    @Override
+    
     public int getLength() {
         return this.baseList.getLength();
     }
 
-    @Override
+    
     public Node[] getNodeList() {
         return this.baseList.getNodeList();
     }
@@ -71,36 +71,36 @@ public class AugmentedAdjacentList implements AdjacentList, Updateable {
         return -1;
     }
 
-    @Override
+    
     public void print() {
         
     }
 
-    @Override
+    
     public boolean isReady() {
         if(baseList.isReady())
         return this.isReady;
         return false;
     }
 
-    @Override
+    
     public void rebuildAdjacentList() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
+    
     public void addNode(Node in) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
+    
     public void removeNode(Node in) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
  
 
-    @Override
+    
     public void clearUnusedNodes() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

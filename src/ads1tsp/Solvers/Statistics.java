@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ads1tsp.Utils;
+package ads1tsp.Solvers;
+
+import ads1tsp.Utils.Report;
 
 /**
  *
@@ -12,6 +14,13 @@ package ads1tsp.Utils;
 public class Statistics {
     String Message;
     int Iterations;
+    long totalTime;
+    long avgIterationTime;
+    long minIterationTime;
+    long maxIterationTime;
+    double bestRouteLength;
+    int numberOfTowns;
+    
     
     public Statistics()
     {Iterations=0;}
@@ -19,11 +28,13 @@ public class Statistics {
     {
         Message=in;
         Iterations=0;
+        
     }
     public void increment()
     {
         Iterations++;
     }
+    public void increment(long tSlice){increment();totalTime+=tSlice; if(tSlice<minIterationTime)minIterationTime=tSlice; if(tSlice>maxIterationTime)maxIterationTime=tSlice; avgIterationTime=totalTime/Iterations;};
     public int getIterations(){return Iterations;}
     
     public void setMessage(String in)
@@ -33,6 +44,11 @@ public class Statistics {
     
     public String getMessage()
     {return Message;
+    }
+    
+    public Report getReport()
+    {
+        return new Report();
     }
     
 }

@@ -12,9 +12,8 @@ import ads1tsp.Utils.ArrayDistanceFinder;
 import ads1tsp.Utils.ArrayReservoir;
 import ads1tsp.Utils.Link;
 import ads1tsp.Utils.Node;
-import ads1tsp.Utils.PlainAdjacentList;
+import ads1tsp.Utils.AdjacentList;
 import ads1tsp.Utils.Route;
-import ads1tsp.Utils.Statistics;
 import ads1tsp.Utils.TimeKeeper;
 import java.util.ArrayList;
 import javafx.scene.paint.Color;
@@ -82,7 +81,7 @@ public class NearestNeighbor implements Solver {
         //output.generateFromAdjacentList((PlainAdjacentList)workData,R.getLinkArrayList());
         // System.out.println("Adding l: " + previous + " and " + currentNode);
 
-        output.generateFromAdjacentList((PlainAdjacentList) workData, R.getLinkArrayList());
+        output.generateFromAdjacentList((AdjacentList) workData, R.getLinkArrayList());
         output.addRoad(previous, currentNode, Color.RED);
 
     }
@@ -102,7 +101,7 @@ public class NearestNeighbor implements Solver {
         ADF = new ArrayDistanceFinder(AR);
         this.output = new PlotList(this);
         R = new Route(workData.getLength());
-        output.generateFromAdjacentList((PlainAdjacentList) workData);
+        output.generateFromAdjacentList((AdjacentList) workData);
         
 
         isPrepared = true;

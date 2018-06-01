@@ -8,6 +8,13 @@ package ads1tsp;
 /**
  *
  * @author Robert Martinu
+ * @author Julia Pichler
+ * 
+ */
+
+/**
+ * Notification system
+ * allows to send and receive notifications
  */
 public interface Updateable {
     void Notify();
