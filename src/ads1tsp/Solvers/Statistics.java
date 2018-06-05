@@ -58,7 +58,7 @@ public class Statistics {
         this.Message = in;
     }
 
-    private String timeToString(long in){return Long.toString(in%1000000/1000).concat(" ms, ").concat(Long.toString(in%1000).concat("us"));}
+    private String timeToString(long in){return Long.toString(in/1000000).concat(" ms, ").concat(Long.toString((in%1000000)/1000).concat("us"));}
     public String getMessage() {
         StringBuilder sb=new StringBuilder();
         sb.append(this.Message);

@@ -53,7 +53,7 @@ public class PlotterControl extends VBox implements Updateable {
     Button SingleStep, Load;
     Button Start, Stop;
     EventHandler<ActionEvent> tick;
-    RadioButton dummy, FullEunm,NN, Ant;
+    RadioButton kOpt, FENum,NN, Ant;
     ToggleGroup solverSelect;
     Plotter thePlotter;
     
@@ -67,6 +67,10 @@ public class PlotterControl extends VBox implements Updateable {
         SingleStep = new Button("Single Step");
         
         solverSelect=new ToggleGroup();
+        kOpt=new RadioButton("kopt");
+        FENum=new RadioButton("Full Enum");
+        NN=new RadioButton("Nearest");
+        
 
         
         Button FullEnum=new Button("Full Enum");
@@ -75,6 +79,7 @@ public class PlotterControl extends VBox implements Updateable {
             public void handle(ActionEvent t) {
                 currentSolver=new FullEnumeration();
                 prepareSolver();
+                triggerSolver();
             }
         });
         Button NearestN=new Button ("NearestN");
@@ -82,13 +87,18 @@ public class PlotterControl extends VBox implements Updateable {
             @Override
             public void handle(ActionEvent t) {
                 currentSolver=new NearestNeighbor();
+                prepareSolver();
+                triggerSolver();
             }
         });
         Button AntColony=new Button("Ants");
         AntColony.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
+                System.out.print("ants\n");
                currentSolver=new AntColony();
+               prepareSolver();
+               triggerSolver();
             }
         });
         Button kOpt=new Button("kOpt");
@@ -96,6 +106,8 @@ public class PlotterControl extends VBox implements Updateable {
             @Override
             public void handle(ActionEvent t) {
                 currentSolver=new kOpt();
+                prepareSolver();
+                triggerSolver();
             }
         });
         
@@ -134,6 +146,13 @@ public class PlotterControl extends VBox implements Updateable {
         });
 
         Start = new Button("Start");
+        Start.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                currentSolver.finish();
+                triggerSolver();
+            }
+        });
 
         Stop = new Button("Stop");
 
@@ -159,7 +178,7 @@ void prepareSolver()
 //        }
         //currentSolver = new NearestNeighbor();
        //currentSolver=new AntColony();
-       currentSolver=new kOpt();
+       //currentSolver=new kOpt();
         
         //currentSolver=new FullEnumeration();
         if (TSPData != null) {
@@ -190,7 +209,7 @@ void prepareSolver()
                 s = currentSolver.getStatistics();
 
                 if(s!=null)
-                thePlotter.report.L.setText(s.getMessage());
+                thePlotter.report.seText(s.getMessage());
                 else
                 {System.err.println("no stats");}
     }

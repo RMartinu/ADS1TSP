@@ -19,6 +19,7 @@ public class ReportPane extends Pane{
         L=new Label("...and I've never been here");
         this.getChildren().add(L);
     }
+    public void seText(String in){L.setText(in);}
     
     
 }
