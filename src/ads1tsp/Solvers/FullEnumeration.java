@@ -155,7 +155,10 @@ public class FullEnumeration implements Solver, Updateable {
 
     @Override
     public void finish() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        while(!this.isFinished)
+        {
+            this.step();
+        }
     }
 
 }

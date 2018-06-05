@@ -76,10 +76,12 @@ public class AntColony implements Solver {
         }
 
         tKeeper.stop();
+        stats.increment(tKeeper.getIterationTime());
         ArrayList<Link> LinksToDisplay = workData.getActiveLinks(workData.getMaxWeight() / 100000);
         //double maxWeight=workData.getMaxWeight();
         //System.out.println("HitNum: " + LinksToDisplay.size());
         winningRoute = this.traceBestRoute();
+        stats.setRoute(winningRoute);
 //        double minl=Double.POSITIVE_INFINITY;
 //        for (Ant a: AntArray)
 //        {

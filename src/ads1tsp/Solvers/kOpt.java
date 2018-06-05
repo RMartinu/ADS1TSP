@@ -30,7 +30,8 @@ public class kOpt implements Solver {
 
     boolean isPrepared;
     boolean isFinished;
-    int ifirst = 2, isecond = 4;
+    boolean hasImproved;
+    int ifirst = 0, isecond = 0;
 
     @Override
     public void step() {
@@ -51,23 +52,29 @@ public class kOpt implements Solver {
         t.addNodes(tNode);
         Route s = new Route();
         s.addNodes(tNode2);
+                if (t.getRouteLength() > s.getRouteLength()) {
+            candidate = s;
+        } else {
+            candidate = t; hasImproved=true;
+        }
         isecond++;
         if (isecond == candidate.getNodeList().length) {
             ifirst++;
-            isecond = ifirst + 1;
-            if (isecond == candidate.getNodeList().length) {
+            isecond = ifirst ;
+            if (isecond == candidate.getNodeList().length&& (!hasImproved)) {
                 this.isFinished = true;
             }
+            else{ifirst=0; isecond=1;
+            System.out.println("resetting");
+            }
         }
-        if (t.getRouteLength() > s.getRouteLength()) {
-            candidate = s;
-        } else {
-            candidate = t;
-        }
+
         /***********************************/
  
 
         tk.stop();
+        stats.increment(tk.getIterationTime());
+        stats.setRoute(candidate);
         output = new PlotList(this);
         output.generateFromAdjacentList(workData, candidate.getLinkArrayList());
         output.addRoad(candidate.getEndNode(), candidate.getStartNode());
@@ -151,7 +158,9 @@ public class kOpt implements Solver {
 
     @Override
     public void finish() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (int i =0 ;i<1000; i++)
+            
+        {this.step();}
     }
 
 }
