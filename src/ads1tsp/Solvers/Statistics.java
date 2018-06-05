@@ -6,6 +6,7 @@
 package ads1tsp.Solvers;
 
 import ads1tsp.Utils.Report;
+import ads1tsp.Utils.Route;
 
 /**
  *
@@ -63,6 +64,15 @@ public class Statistics {
 
     public Report getReport() {
         return new Report();
+    }
+    public void setRoute(Route in)
+    {
+        this.bestRouteLength=in.getRouteLength();
+    }
+    
+    public void setNumOfTowns(int in)
+    {
+        this.setNumOfTowns(in);
     }
 
 }

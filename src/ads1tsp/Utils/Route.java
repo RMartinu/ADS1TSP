@@ -39,12 +39,29 @@ public class Route
         return route.get(route.size() - 1);
         else return route.get(route.size()-2);
     }
+    public Node[] getNodeList()
+            
+    {
+        Node [] t= new Node[route.size()];
+        t=route.toArray(t);
+        return t;
+    }
 
     public void addNode(Node In)
     {
         route.add(In);
         length = 0;
     }
+    
+    public void addNodes (Node [] in)
+    {
+        for (Node n:in)
+        {route.add(n);
+        }
+        length=0;
+    }
+    
+    
 
     public double getRouteLength()
     {
@@ -111,6 +128,13 @@ public class Route
         t.add(new Link(this.getStartNode(), this.getEndNode()));
         return t;
                 
+    }
+    
+    public String toString()
+    {
+        StringBuilder s= new StringBuilder();
+        this.route.forEach((x)->{s.append(x.toString());});
+        return s.toString();
     }
 
 }

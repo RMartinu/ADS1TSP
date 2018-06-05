@@ -31,7 +31,7 @@ public class AntColony implements Solver {
     Route winningRoute;
     Node[] workNodes;
     boolean isPrepared;
-    int numberOfAnts = 10000;
+    int numberOfAnts = 50000;
     Ant[] AntArray;
     double decayFactor=0.75;
     double PheromoneTotal=10000;
@@ -50,6 +50,7 @@ public class AntColony implements Solver {
         }
 
         tKeeper.start();
+        this.stats.increment(tKeeper.getIterationTime());
 
         //send ants through the map an let them record their routes
         for (Ant a : AntArray) {
@@ -63,7 +64,7 @@ public class AntColony implements Solver {
             //ask the ant for the Route it took
             Link[] ListOfUsedLinks = a.myTrack.getLinks();
             double totalLength = a.myTrack.getRouteLength();
-            double pheromoneByUnit=this.PheromoneTotal/totalLength;
+            double pheromoneByUnit=this.PheromoneTotal/Math.pow(totalLength, 3);
             double contribution;
             for (Link l : ListOfUsedLinks) {
                 //add a proportional Amount of Pheromone
@@ -136,7 +137,8 @@ public class AntColony implements Solver {
     }
     private void prepare() {
         this.tKeeper = new TimeKeeper();
-        this.output = new PlotList(this);
+        if(output==null)
+        {this.output = new PlotList(this);}
         output.generateFromAdjacentList(workData);
         this.AntArray = null;
 
@@ -152,7 +154,9 @@ public class AntColony implements Solver {
 
     @Override
     public void addAdjacentList(AdjacentList input) {
+        this.isPrepared=false;
         this.workData = input;
+        workData.setListener(this);
         this.output = new PlotList(this);
         output.generateFromAdjacentList(input);
         prepare();
@@ -203,7 +207,7 @@ class Ant {
     static int chooseRandom;
     double sumOfAdjacentWeights;
     Node start, end, current, previous;
-    static int flakeyness=25;
+    static int flakeyness=85;
 
     public Ant(AdjacentList in) {
         map = in.getNodeList();

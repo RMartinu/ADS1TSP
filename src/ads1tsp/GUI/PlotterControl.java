@@ -15,6 +15,7 @@ import ads1tsp.Updateable;
 import ads1tsp.Utils.AdjacentList;
 import ads1tsp.Utils.FileIO;
 import ads1tsp.Solvers.Statistics;
+import ads1tsp.Solvers.kOpt;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
@@ -49,6 +50,7 @@ public class PlotterControl extends VBox implements Updateable {
     EventHandler<ActionEvent> tick;
     RadioButton dummy, FullEunm,NN, Ant;
     ToggleGroup solverSelect;
+    
     
 
     public PlotterControl(Plotter toPlot) {
@@ -103,7 +105,8 @@ public class PlotterControl extends VBox implements Updateable {
         }
         //currentSolver=new DummySolver();
         //currentSolver = new NearestNeighbor();
-       currentSolver=new AntColony();
+       //currentSolver=new AntColony();
+       currentSolver=new kOpt();
         
         //currentSolver=new FullEnumeration();
         if (TSPData != null) {
