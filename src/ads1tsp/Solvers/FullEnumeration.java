@@ -17,6 +17,7 @@ import ads1tsp.Utils.TimeKeeper;
 /**
  *
  * @author Robert Martinu
+ * @author Julia Picher
  */
 public class FullEnumeration implements Solver, Updateable {
 
@@ -150,6 +151,11 @@ public class FullEnumeration implements Solver, Updateable {
             UD.Notify();
         }
 
+    }
+
+    @Override
+    public void finish() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

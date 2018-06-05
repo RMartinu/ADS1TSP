@@ -152,4 +152,9 @@ public class NearestNeighbor implements Solver {
         this.UD = that;
     }
 
+    @Override
+    public void finish() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

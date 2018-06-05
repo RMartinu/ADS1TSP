@@ -196,6 +196,12 @@ public class AntColony implements Solver {
         }
     }
 
+    @Override
+    public void finish() {
+        for (int i = 0; i<10; i++){this.step();}
+        
+    }
+
 }
 
 class Ant {

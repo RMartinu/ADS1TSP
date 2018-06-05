@@ -29,6 +29,7 @@ public class FileIO
 
         int numberOfEntries = 0;
 
+        System.out.println("Been asked o open;" + in.getAbsolutePath());
         Scanner sc = new Scanner(in);
         if (sc.hasNextInt())
         {

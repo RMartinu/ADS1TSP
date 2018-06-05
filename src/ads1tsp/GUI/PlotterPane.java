@@ -19,6 +19,7 @@ import javafx.scene.shape.Line;
 /**
  *
  * @author Robert Martinu
+ * @author Julia Pichler
  */
 public class PlotterPane extends Pane implements Updateable {
    

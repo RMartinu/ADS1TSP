@@ -13,6 +13,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
@@ -48,13 +49,14 @@ public class ads1tsp extends Application {
 //        bp.setCenter(dp);
 //        p.repaint();
 //        q.repaint();
-Plotter myPlotter=new Plotter();
+Plotter myPlotter=new Plotter(primaryStage);
         Scene s = new Scene(myPlotter, 1000, 700);
 //        bp.setMinSize(300, 300);
         primaryStage.setScene(s);
         s.widthProperty().addListener((obs,a,b)->{System.err.println("scene res");});
         primaryStage.widthProperty().addListener((obs,a,b)->{System.err.println("Stage res");});
         primaryStage.show();
+      
      
     }
 
