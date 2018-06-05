@@ -19,7 +19,7 @@ class NearestNeighborSettingsPane extends SettingsPane {
     public NearestNeighborSettingsPane(Solver in) {
        // super(in);
        l=new Label();
-       l.setText("I am Justice!");
+       l.setText("");
        vLayout=new VBox(l);
        this.getChildren().add(vLayout);
        

@@ -12,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.stage.Stage;
 
 /**
  *
@@ -21,8 +22,9 @@ public class Plotter extends Pane{
     PlotterPane plotPane;
     PlotterControl plotControl;ReportPane report;
     BorderPane HLayout;
+    Stage myStage;
     
-    public Plotter()
+    public Plotter(Stage s)
     {
         plotPane=new PlotterPane();
         plotPane.minHeight(800);
@@ -31,6 +33,7 @@ public class Plotter extends Pane{
 //        plotPane.prefWidth(1800);
         plotPane.setPrefWidth(750);
         plotPane.setPrefHeight(600);
+        myStage=s;
         
         plotControl=new PlotterControl(this);
         

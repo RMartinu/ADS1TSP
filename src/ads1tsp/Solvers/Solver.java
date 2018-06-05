@@ -15,6 +15,7 @@ import ads1tsp.Utils.AdjacentList;
  */
 public interface Solver extends Updateable{
     public void step();
+    public void finish();
     public PlotList getPlotList();
     public void addAdjacentList(AdjacentList input);
     public Statistics getStatistics();

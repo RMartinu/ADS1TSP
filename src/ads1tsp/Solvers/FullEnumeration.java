@@ -18,6 +18,7 @@ import ads1tsp.Utils.TimeKeeper;
  *
  * @author Robert Martinu
  * @author Julia Pichler
+ * @author Julia Picher
  */
 public class FullEnumeration implements Solver, Updateable {
 
@@ -154,6 +155,14 @@ public class FullEnumeration implements Solver, Updateable {
             UD.Notify();
         }
 
+    }
+
+    @Override
+    public void finish() {
+        while(!this.isFinished)
+        {
+            this.step();
+        }
     }
 
 }

@@ -156,4 +156,13 @@ public class NearestNeighbor implements Solver {
         this.UD = that;
     }
 
+    @Override
+    public void finish() {
+        for (int i =0; i<10; i++)
+        {
+            this.step();
+        }
+                
+    }
+
 }

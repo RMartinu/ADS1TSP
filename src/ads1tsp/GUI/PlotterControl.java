@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -27,8 +28,12 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import javax.swing.plaf.basic.BasicBorders;
 
 /**
@@ -45,29 +50,66 @@ public class PlotterControl extends VBox implements Updateable {
     SettingsPane SolverSettings;
     ReportPane stats;
     VBox verticalLayout;
-    Button SingleStep, reset;
+    Button SingleStep, Load;
     Button Start, Stop;
     EventHandler<ActionEvent> tick;
-    RadioButton dummy, FullEunm,NN, Ant;
+    RadioButton kOpt, FENum,NN, Ant;
     ToggleGroup solverSelect;
+    Plotter thePlotter;
     
+    FileChooser fc;
     
 
     public PlotterControl(Plotter toPlot) {
+        thePlotter=toPlot;
         output = toPlot.plotPane;
-        Label l = new Label("Muffin");
+        Label l = new Label("ALG1TSP");
         SingleStep = new Button("Single Step");
         
         solverSelect=new ToggleGroup();
-        dummy=new RadioButton("Dummysolver");
-        dummy.setToggleGroup(solverSelect);
+        kOpt=new RadioButton("kopt");
+        FENum=new RadioButton("Full Enum");
+        NN=new RadioButton("Nearest");
         
-        FullEunm=new RadioButton("Full Enum");
-        FullEunm.setToggleGroup(solverSelect);
-        NN=new RadioButton("Nearest\nNeighbor");
-        NN.setToggleGroup(solverSelect);
-        Ant=new RadioButton("Ant Colony");
-        Ant.setToggleGroup(solverSelect);
+
+        
+        Button FullEnum=new Button("Full Enum");
+        FullEnum.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                currentSolver=new FullEnumeration();
+                prepareSolver();
+                triggerSolver();
+            }
+        });
+        Button NearestN=new Button ("NearestN");
+        NearestN.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                currentSolver=new NearestNeighbor();
+                prepareSolver();
+                triggerSolver();
+            }
+        });
+        Button AntColony=new Button("Ants");
+        AntColony.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                System.out.print("ants\n");
+               currentSolver=new AntColony();
+               prepareSolver();
+               triggerSolver();
+            }
+        });
+        Button kOpt=new Button("kOpt");
+        kOpt.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                currentSolver=new kOpt();
+                prepareSolver();
+                triggerSolver();
+            }
+        });
         
        
 
@@ -75,44 +117,75 @@ public class PlotterControl extends VBox implements Updateable {
             @Override
             public void handle(ActionEvent t) {
                 //System.out.println("Been licked");
-                currentSolver.step();
-                dataOutput = currentSolver.getPlotList();
-                output.setCurrentData(dataOutput);
-                Statistics s;
-                s = currentSolver.getStatistics();
-
-                if(s!=null)
-                toPlot.report.L.setText(s.getMessage());
-                else
-                {System.err.println("no stats");}
+               triggerSolver();
 
             }
         };
         SingleStep.setOnAction(tick);
 
-        reset = new Button("reset");
+        TextField TFInput= new TextField();
+        Load = new Button("Load File");
+        Load.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                File inpFile=new File(TFInput.getText());
+                System.out.println(inpFile.getAbsolutePath());
+                if(inpFile==null)
+                    System.out.println("No File");
+                else{
+                    try {
+                        TSPData=FileIO.NodeListFromFile(inpFile);
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(PlotterControl.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+               // prepareSolver();
+                
+                
+            }
+        });
 
         Start = new Button("Start");
+        Start.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                currentSolver.finish();
+                triggerSolver();
+            }
+        });
 
         Stop = new Button("Stop");
 
-        verticalLayout = new VBox(l, SingleStep,reset, Start, Stop);
-        this.getChildren().add(verticalLayout);
-        try {
-            TSPData = FileIO.NodeListFromFile(new File("D:\\TSP1.tsp"));
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(PlotterControl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //currentSolver=new DummySolver();
+        verticalLayout = new VBox(l, SingleStep,TFInput,Load, Start, FullEnum, NearestN, AntColony, kOpt);this.getChildren().add(verticalLayout);
+
+        Thread t= new Thread(new triggerLoop(this));
+       // t.start();
+
+    }
+void prepareSolver() 
+{
+//        try {
+//            TSPData=FileIO.NodeListFromFile(new File("D:\\TSP2.tsp"));
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(PlotterControl.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+           
+      
+        //currentSolver=new DummySolver();     try {
+//            TSPData=FileIO.NodeListFromFile(new File("D:\\TSP2.tsp"));
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(PlotterControl.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         //currentSolver = new NearestNeighbor();
        //currentSolver=new AntColony();
-       currentSolver=new kOpt();
+       //currentSolver=new kOpt();
         
         //currentSolver=new FullEnumeration();
         if (TSPData != null) {
             currentSolver.addAdjacentList(TSPData);
         } else {
             System.err.println("TSP empty");
+            Load.fire();
         }
 
         currentSolver.setListener(this);
@@ -122,15 +195,25 @@ public class PlotterControl extends VBox implements Updateable {
 
         dataOutput = currentSolver.getPlotList();
         
-        dataOutput.evalBounds(toPlot);
+        dataOutput.evalBounds(thePlotter);
+      
 
         output.setCurrentData(dataOutput);
+}
+    void triggerSolver()
+    {
+         currentSolver.step();
+                dataOutput = currentSolver.getPlotList();
+                output.setCurrentData(dataOutput);
+                Statistics s;
+                s = currentSolver.getStatistics();
 
+                if(s!=null)
+                thePlotter.report.seText(s.getMessage());
+                else
+                {System.err.println("no stats");}
     }
 
-    void triggerUpdate() {
-        System.out.println("I'm triggered");
-    }
 
     private void setSolver() {
         output.setListener(currentSolver);
@@ -153,4 +236,37 @@ public class PlotterControl extends VBox implements Updateable {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+}
+
+class triggerLoop implements Runnable{
+
+    PlotterControl remote;
+    boolean run;
+    public triggerLoop(PlotterControl in)
+    {
+        remote=in;
+        run=true;
+    }
+    public void shutdown()
+    {run=false;}
+    public void restart()
+    {run=true;}
+    @Override
+    public void run() {
+        while(run){
+        System.out.println("Outo");
+        if(run)
+        {
+            remote.SingleStep.fire();
+        }
+        
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(triggerLoop.class.getName()).log(Level.SEVERE, null, ex);
+        }}
+        
+        
+        
+    }
 }

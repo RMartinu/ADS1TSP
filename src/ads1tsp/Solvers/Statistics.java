@@ -58,8 +58,14 @@ public class Statistics {
         this.Message = in;
     }
 
+    private String timeToString(long in){return Long.toString(in/1000000).concat(" ms, ").concat(Long.toString((in%1000000)/1000).concat("us"));}
     public String getMessage() {
-        return Message;
+        StringBuilder sb=new StringBuilder();
+        sb.append(this.Message);
+        sb.append("\niteration " + timeToString(this.avgIterationTime));
+        sb.append("\nTotal " + timeToString(totalTime));
+        sb.append("\nTrackLength " + this.bestRouteLength);
+        return sb.toString();
     }
 
     public Report getReport() {

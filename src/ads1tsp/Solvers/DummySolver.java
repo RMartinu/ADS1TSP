@@ -115,5 +115,10 @@ public class DummySolver implements Solver {
     public void setListener(Updateable that) {
         this.listener=that;
     }
+
+    @Override
+    public void finish() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
