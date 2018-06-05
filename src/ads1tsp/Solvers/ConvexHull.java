@@ -8,12 +8,27 @@ package ads1tsp.Solvers;
 import ads1tsp.GUI.PlotList;
 import ads1tsp.Updateable;
 import ads1tsp.Utils.AdjacentList;
+import ads1tsp.Utils.Node;
+import ads1tsp.Utils.Reservoir;
+import ads1tsp.Utils.Route;
 
 /**
  *
  * @author Robert Martinu
+ * @author Julia Pichler
  */
-public class kOpt implements Solver {
+public class ConvexHull implements Solver{
+    Node start, end;
+    double angles[];
+    Reservoir NodesToProcess;
+    Route currentRoute;
+    
+    public ConvexHull()
+    {}
+    
+    public void calculateAngles(){}
+    public void getFarthest(){}
+    public void insertCheapest(){}
 
     @Override
     public void step() {
@@ -30,15 +45,8 @@ public class kOpt implements Solver {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
- 
-
     @Override
     public Statistics getStatistics() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void Notify() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -49,6 +57,11 @@ public class kOpt implements Solver {
 
     @Override
     public boolean isReady() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void Notify() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

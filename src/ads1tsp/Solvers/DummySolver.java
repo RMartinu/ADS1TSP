@@ -34,7 +34,8 @@ public class DummySolver implements Solver {
         
         
     }
-    private void sendNotification()
+    @Override
+    public void sendMessage()
     {
         if(listener!=null)
         listener.Notify();
@@ -73,7 +74,7 @@ public class DummySolver implements Solver {
         workData.setListener(this);
         outDAta=new PlotList(this);
         outDAta.generateFromAdjacentList((AdjacentList)workData);
-        sendNotification();
+        sendMessage();
         
     }
 
@@ -96,7 +97,7 @@ public class DummySolver implements Solver {
         System.out.println("DummyPlug got a call, forward to " + this.listener);
         outDAta=new PlotList(this);
         outDAta.generateFromAdjacentList((AdjacentList)workData);
-        sendNotification();
+        sendMessage();
         
     }
 

@@ -243,6 +243,61 @@ public class AdjacentList implements Updateable
         }
         // print();
     }
+    
+    /**
+     * Modifies all edge Weights by supplied Multiplier
+     * @param factor Multiplier for each edge
+     */
+    public void decayEdgeWeights(double factor)
+    {
+        for (double[] e1: edgeWeigths)
+        {
+            for (int i=0; i<e1.length; i++)
+            {
+                e1[i]*=factor;
+            }
+        }
+    }
+    
+    /**
+     * Determinate the largest weight in the edgeWeight list.
+     * Makes the access to this information implementation independent
+     * @return max weight amongst the edges
+     */
+    public double getMaxWeight()
+    {
+        double max=0;
+                for (double[] e1: edgeWeigths)
+        {
+            for (int i=0; i<e1.length; i++)
+            {
+                if(e1[i]>max)
+                    max=e1[i];
+            }
+        }
+        return max;
+    }
+    
+    /**
+     * Collects a List of all Links with weights above a certain threshold
+     * @param threshold minimum weights for edges to be collected
+     * @return List of Links that match description
+     */
+    public ArrayList<Link> getActiveLinks(double threshold)
+    {
+        ArrayList<Link> LinkCollector=new ArrayList<>();
+        for (int i =0; i<edgeWeigths.length; i++)
+        {
+            for (int j =0; j<edgeWeigths[i].length; j++)
+            {
+                if (edgeWeigths[i][j]>threshold)
+                {
+                    LinkCollector.add(new Link(NodeList[i], NodeList[j]));
+                }
+            }
+        }
+        return LinkCollector;
+    }
 
     /**
      * on notiy update the lists and notify listener
@@ -258,14 +313,14 @@ public class AdjacentList implements Updateable
         // print();
 
         //rebuildAdjacentList();
-        sendNotification();
+        sendMessage();
     }
 
     /**
      * notifies listener
      */
     
-    private void sendNotification()
+    public void sendMessage()
     {
         if (listener != null)
         {//System.out.println("PADJL sends to " + listener.toString());
@@ -282,6 +337,8 @@ public class AdjacentList implements Updateable
     {
         return this.NodeList;
     }
+    
+
 
     public void print()
     {

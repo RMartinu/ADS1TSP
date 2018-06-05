@@ -102,7 +102,6 @@ public class NearestNeighbor implements Solver {
         this.output = new PlotList(this);
         R = new Route(workData.getLength());
         output.generateFromAdjacentList((AdjacentList) workData);
-        
 
         isPrepared = true;
     }
@@ -132,7 +131,7 @@ public class NearestNeighbor implements Solver {
         sendMessage();
     }
 
-    private void sendMessage() {
+    public void sendMessage() {
         if (this.UD != null) {
             UD.Notify();
         }

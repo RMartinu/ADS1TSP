@@ -54,17 +54,26 @@ public class FullEnumeration implements Solver, Updateable {
             if (!permutatrix.hasMore()) {
                 this.isFinished = true;
             }
-            if (this.shortestRoute.getRouteLength() > Candidate.getRouteLength()) {
+            if (this.shortestRoute.getRouteLength() >Candidate.getRouteLength())
+            {
                 shortestRoute = Candidate;
             }
             keeper.stop();
         }
 
         stats.increment();
-        stats.setMessage("Iteration: " + stats.getIterations() + "\nshort: " + shortestRoute.getRouteLength() + "\ncurrent: " + Candidate.getRouteLength() + "\nLast It: " + keeper.getIterationTime() / 1000000 + "ms " + (keeper.getIterationTime() % 1000000) / 1000 + "us " + "\nTotal: " + keeper.getTotalTime() / 1000000 + "ms " + (keeper.getTotalTime() % 1000000) / 1000 + "us");
+        stats.setMessage("Iteration: " + stats.getIterations() + "\nshort: " + 
+                shortestRoute.getRouteLength() +
+                "\ncurrent: " + Candidate.getRouteLength() + "\nLast It: " 
+                + keeper.getIterationTime() / 1000000 + "ms "
+                + (keeper.getIterationTime() % 1000000) / 1000 + "us " 
+                + "\nTotal: " +keeper.getTotalTime() / 1000000 + "ms "
+                + (keeper.getTotalTime() % 1000000) / 1000 + "us");
         output = new PlotList(this);
-        output.generateFromAdjacentList((AdjacentList) this.workData, shortestRoute.getLinkArrayList());
-        output.addRoad(shortestRoute.getStartNode(), shortestRoute.getEndNode());
+        output.generateFromAdjacentList((AdjacentList) this.workData, 
+                shortestRoute.getLinkArrayList());
+        output.addRoad(shortestRoute.getStartNode(), 
+                shortestRoute.getEndNode());
 
     }
 
@@ -104,7 +113,7 @@ public class FullEnumeration implements Solver, Updateable {
 
     @Override
     public boolean isReady() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     @Override
@@ -136,7 +145,7 @@ public class FullEnumeration implements Solver, Updateable {
         this.isPrepared = true;
     }
 
-    private void sendMessage() {
+    public  void sendMessage() {
         if (this.UD != null) {
             UD.Notify();
         }

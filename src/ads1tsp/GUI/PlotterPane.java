@@ -133,4 +133,9 @@ if(currentData!=null)currentData.evalBounds(this);
     public void setListener(Updateable that) {
         this.listener=that;
     }
+
+    @Override
+    public void sendMessage() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

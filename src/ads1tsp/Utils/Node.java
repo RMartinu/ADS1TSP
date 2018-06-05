@@ -93,8 +93,7 @@ public class Node implements Updateable{
  */
     @Override
     public void Notify() {
-        if(listener!=null)
-            listener.Notify();
+        this.sendMessage();
         
         
     }
@@ -102,6 +101,12 @@ public class Node implements Updateable{
     @Override
     public void setListener(Updateable that) {
         this.listener=that;
+    }
+
+    @Override
+    public void sendMessage() {
+        if(listener!=null)
+            listener.Notify();
     }
     
     

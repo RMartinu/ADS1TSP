@@ -5,6 +5,7 @@
  */
 package ads1tsp.GUI;
 
+import ads1tsp.Solvers.AntColony;
 import ads1tsp.Solvers.DummySolver;
 import ads1tsp.Solvers.FullEnumeration;
 import ads1tsp.Solvers.NearestNeighbor;
@@ -78,7 +79,10 @@ public class PlotterControl extends VBox implements Updateable {
                 Statistics s;
                 s = currentSolver.getStatistics();
 
+                if(s!=null)
                 toPlot.report.L.setText(s.getMessage());
+                else
+                {System.err.println("no stats");}
 
             }
         };
@@ -98,7 +102,8 @@ public class PlotterControl extends VBox implements Updateable {
             Logger.getLogger(PlotterControl.class.getName()).log(Level.SEVERE, null, ex);
         }
         //currentSolver=new DummySolver();
-        currentSolver = new NearestNeighbor();
+        //currentSolver = new NearestNeighbor();
+       currentSolver=new AntColony();
         
         //currentSolver=new FullEnumeration();
         if (TSPData != null) {
@@ -137,6 +142,11 @@ public class PlotterControl extends VBox implements Updateable {
 
     @Override
     public void setListener(Updateable that) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void sendMessage() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

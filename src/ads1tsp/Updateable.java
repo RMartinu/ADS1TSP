@@ -19,5 +19,6 @@ package ads1tsp;
 public interface Updateable {
     void Notify();
     void setListener(Updateable that);
+    void sendMessage();
     
 }

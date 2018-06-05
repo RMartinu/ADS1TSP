@@ -50,6 +50,7 @@ public class Town implements Updateable
         myY = new SimpleDoubleProperty(myNode.getY() * scaleY + screenOffsetY);
         circle = new Circle(10);
         //circle.setStroke(myColor);
+        circle.setFill(myColor);
         circle.centerXProperty().bindBidirectional(myX);
         circle.centerYProperty().bindBidirectional(myY);
         addMouseListeners();
@@ -66,6 +67,7 @@ public class Town implements Updateable
         myX = new SimpleDoubleProperty(myNode.getX() * scaleX + screenOffsetX);
         myY = new SimpleDoubleProperty(myNode.getY() * scaleY + screenOffsetY);
         circle = new Circle(15);
+        circle.setFill(c);
         circle.centerXProperty().bindBidirectional(myX);
         circle.centerYProperty().bindBidirectional(myY);
         addMouseListeners();
@@ -112,7 +114,7 @@ public class Town implements Updateable
             {
                 this.myNode.setIndex(-1);
             };
-            SendMessage();
+            sendMessage();
         });
 
         circle.addEventFilter(MouseEvent.MOUSE_CLICKED, (MouseEvent me) ->
@@ -123,12 +125,12 @@ public class Town implements Updateable
                 System.out.println("Target Splashed");
                 this.myNode.setIndex(-1);
             }
-            this.SendMessage();
+            this.sendMessage();
         });
         //circle.setOnMouseClicked((MouseEvent me)->{System.out.println("eat klick"); me.consume();});
     }
 
-    private void SendMessage()
+    public void sendMessage()
     {
         if (listener != null)
         {
@@ -198,5 +200,7 @@ public class Town implements Updateable
     {
         this.listener = that;
     }
+
+    
 
 }

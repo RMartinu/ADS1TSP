@@ -35,7 +35,9 @@ public class Route
 
     public Node getEndNode()
     {
+        if(route.get(route.size() - 1)!=this.getStartNode())
         return route.get(route.size() - 1);
+        else return route.get(route.size()-2);
     }
 
     public void addNode(Node In)
@@ -86,6 +88,7 @@ public class Route
         return ListOfLinks;
 
     }
+    
 
     /**
      * 
@@ -101,6 +104,13 @@ public class Route
             LiOLinks.add(new Link(route.get(i), route.get(i + 1)));
         }
         return LiOLinks;
+    }
+    public ArrayList<Link> gtLinksClosedArrayList()
+    {
+        ArrayList<Link> t=getLinkArrayList();
+        t.add(new Link(this.getStartNode(), this.getEndNode()));
+        return t;
+                
     }
 
 }

@@ -16,10 +16,19 @@ public class ArrayReservoir implements Reservoir
 {
 
     Node[] nodes;
+    AdjacentList adj=null;
+    int storedNodes;
 
     public ArrayReservoir(Node[] inList)
     {
         nodes = inList.clone();
+        storedNodes=this.getLength();
+    }
+    public ArrayReservoir(AdjacentList inList)
+    {
+        adj=inList;
+        nodes=adj.NodeList.clone();
+        storedNodes=getLength();
     }
 
     @Override
@@ -53,6 +62,39 @@ public class ArrayReservoir implements Reservoir
         }
         return null;
     }
+    /**
+     * Finds the Node with the highest weighted connection
+     * returns null if no clear choices present
+     * @param A
+     * @return 
+     */
+    public Node extractByHighestWeight(Node A)
+    {
+        Node t=null;
+        double maxW=-1;
+        for (int i =0; i<this.nodes.length; i++)
+        {
+            if (nodes[i]!=null)
+            {
+                //System.out.println("in: " + A + " out " + nodes[i]);
+             double currW=adj.getWeight(A, nodes[i]);
+             if(currW>maxW)
+             {
+                 maxW=currW;
+                 t=nodes[i];
+             }
+            }
+        }
+        if(maxW<0.1)
+            return null;
+        if(t!=null){}
+        //System.out.println("Found:" + t.toString());
+        else{System.err.println("empty quiver");}
+        extractNode(t);
+        
+        
+        return t;
+    }
 
     @Override
     public Node getByName(String s)
@@ -63,7 +105,22 @@ public class ArrayReservoir implements Reservoir
     @Override
     public Node getByIndex(int i)
     {
-        return this.nodes[i];
+        System.out.println("Search for:"+i);
+        Node t=null;
+        int j=-1,k=0;
+        while (k<nodes.length&& j<i)
+        {
+            if(nodes[k]!=null)
+            {
+                t=nodes[k++];
+                j++;
+            }
+            else
+                k++;
+        }
+        
+        System.out.println("Fond" + t.toString());
+        return t;
     }
 
     /**
@@ -84,6 +141,7 @@ public class ArrayReservoir implements Reservoir
                 {
                     Node n = nodes[i];
                     nodes[i] = null;
+                    storedNodes--;
                     return n;
                 } else
                 {
@@ -122,6 +180,7 @@ public class ArrayReservoir implements Reservoir
             if (nodes[i] == A)
             {
                 nodes[i] = null;
+                storedNodes--;
             }
         }
         return A;
@@ -143,6 +202,7 @@ public class ArrayReservoir implements Reservoir
             {
                 t = nodes[i];
                 nodes[i] = null;
+                storedNodes--;
                 return t;
             }
         }
@@ -165,5 +225,14 @@ public class ArrayReservoir implements Reservoir
     {
         return this.nodes;
     }
+
+    @Override
+    public boolean isEmpty() {
+        if (this.storedNodes==0)
+            return true;
+        else return false;
+    }
+    
+    
 
 }

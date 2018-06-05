@@ -23,5 +23,10 @@ public class Link {
     {return a;}
     public Node getEndNode()
     {return b;}
+    
+    public double length()
+    {
+        return a.calculateDistance(b);
+    }
 
 }

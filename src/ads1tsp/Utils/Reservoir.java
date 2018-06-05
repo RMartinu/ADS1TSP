@@ -22,6 +22,7 @@ public interface Reservoir {
     public Node extractNext();
     public Node[] getData();
     public int getLength();
+    public boolean isEmpty();
            
     
 }
