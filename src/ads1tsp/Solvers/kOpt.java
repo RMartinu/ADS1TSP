@@ -32,6 +32,11 @@ public class kOpt implements Solver {
     boolean isFinished;
     int ifirst = 2, isecond = 4;
 
+    /**
+     * swaps connections of two towns if it generates a better solution of a initially randomly generated route
+     * 
+     */
+    
     @Override
     public void step() {
         if (!isPrepared || isFinished) {

@@ -21,6 +21,7 @@ import javafx.scene.paint.Color;
 /**
  *
  * @author Robert Martinu
+ * @author Julia Pichler
  */
 public class NearestNeighbor implements Solver {
 
@@ -47,6 +48,9 @@ public class NearestNeighbor implements Solver {
 
     }
 
+    /**
+     * finds nearest available neighbour of first/current town and builds street between them
+     */
     @Override
     public void step() {
         if (this.isFinished) {

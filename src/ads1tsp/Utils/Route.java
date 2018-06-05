@@ -10,6 +10,7 @@ import java.util.ArrayList;
 /**
  *
  * @author Robert Martinu
+ * @author Julia Pichler
  */
 public class Route
 {

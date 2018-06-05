@@ -17,6 +17,7 @@ import ads1tsp.Utils.TimeKeeper;
 /**
  *
  * @author Robert Martinu
+ * @author Julia Pichler
  */
 public class FullEnumeration implements Solver, Updateable {
 
@@ -33,6 +34,9 @@ public class FullEnumeration implements Solver, Updateable {
     boolean isPrepared;
     boolean isFinished;
 
+    /**
+     * if executeable in reasonable time, then try every combination with permutation and find the best solution
+     */
     @Override
     public void step() {
         if (this.isFinished) {

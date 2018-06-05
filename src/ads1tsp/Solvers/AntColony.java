@@ -36,6 +36,10 @@ public class AntColony implements Solver {
     double decayFactor=0.75;
     double PheromoneTotal=10000;
 
+    /**
+     * sends ants to find best route by evaluating the most used tracks
+     */
+    
     @Override
     public void step() {
         if (!isPrepared) {
@@ -103,6 +107,11 @@ public class AntColony implements Solver {
 
     }
 
+    /**
+     * compare all routes of ants road by road and evaluate best one
+     * @return returns best route
+     */
+    
     private Route traceBestRoute()
     {
         Reservoir r= new ArrayReservoir(workNodes);

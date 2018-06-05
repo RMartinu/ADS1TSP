@@ -8,6 +8,7 @@ package ads1tsp.Solvers;
 /**
  *
  * @author Robert Martinu
+ * @author Julia Pichler
  */
 public class kOptSettingsPane extends SettingsPane{
     
